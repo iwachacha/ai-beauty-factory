@@ -1,0 +1,10 @@
+backend/node_modules/
+backend/dist/
+backend/.nx/
+backend/tmp/
+backend/apps/aitoearn-server/node_modules/
+backend/apps/factory-server/node_modules/
+web/node_modules/
+web/.next/
+*.log
+.DS_Store

@@ -1,0 +1,23 @@
+services:
+  mongo:
+    image: mongo:8
+    container_name: sns-factory-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  valkey:
+    image: valkey/valkey:8-alpine
+    container_name: sns-factory-valkey
+    restart: unless-stopped
+    command: ["valkey-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - valkey_data:/data
+
+volumes:
+  mongo_data:
+  valkey_data:
