@@ -45,3 +45,6 @@ textarea,
 select {
   font: inherit;
 }
+ 
+.factory-bottom-nav::-webkit-scrollbar { display: none; }  
+ 

@@ -8,6 +8,10 @@ import { factoryFetch } from '../lib/factory-api'
 import { useFactory } from './factory-provider'
 
 const navItems = [
+  { href: '/characters', label: 'キャラクター', description: 'AIモデル管理' },
+  { href: '/templates', label: 'テンプレート', description: 'プロンプトとシーン' },
+  { href: '/monetization', label: '配信・収益', description: 'コンテンツ投稿状況' },
+  { href: '/calendar', label: 'カレンダー', description: '投稿スケジュール' },
   { href: '/accounts', label: 'アカウント連携', description: 'SNSアカウントの登録' },
   { href: '/library', label: 'ライブラリー', description: '投稿素材の管理' },
   { href: '/flows', label: '配信フロー', description: '自動投稿のルール作成' },
@@ -181,6 +185,9 @@ export function FactoryShell({
           border: '1px solid var(--line)',
           boxShadow: 'var(--shadow)',
           backdropFilter: 'blur(20px)',
+          overflowX: 'auto',
+          whiteSpace: 'nowrap',
+          scrollbarWidth: 'none', // For Firefox
         }}
         className="factory-bottom-nav"
       >

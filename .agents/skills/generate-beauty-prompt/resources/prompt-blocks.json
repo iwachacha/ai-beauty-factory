@@ -67,7 +67,19 @@
     "yukata_gap": "traditional yukata with the collar naturally falling slightly open near the nape, showing a glimpse of the elegant neck line and upper back, traditional and graceful",
     "wind_skirt": "a light breeze catching the hem of a pleated skirt, the fabric lifting and flowing naturally with the wind, capturing the moment of movement",
     "back_line": "backless dress or top revealing the smooth curve of shoulder blades and upper back, elegant spine line visible",
-    "sitting_cross": "sitting with legs crossed on a chair or bench, skirt naturally riding up slightly on the thigh, relaxed casual posture"
+    "sitting_cross": "sitting with legs crossed on a chair or bench, skirt naturally riding up slightly on the thigh, relaxed casual posture",
+    "thigh_squish": "sitting, thighs slightly compressed against the surface, soft thigh skin slightly squished, tight skirt or shorts emphasizing the thigh fleshiness, natural body physics",
+    "shoulder_slip": "clothing shoulder strap naturally slipping down to reveal a smooth bare shoulder, unbothered expression, unintentional casual seduction",
+    "hair_tie": "hands reaching behind head tying hair up, mouth occasionally holding a hair tie, revealing nape and underarm areas, natural casual gesture",
+    "cleavage_top": "shot from a high angle looking slightly down, revealing subtle natural cleavage through loose clothing collar or button-down shirt, flattering perspective",
+    "panty_flash": "accidental glimpse of underwear under a short skirt while moving or bending, unintended brief exposure, candid vulnerable moment, wind blowing or awkward posture",
+    "leaning_cleavage": "leaning forward over a table or object, loose top falling slightly open to reveal deep cleavage, unaware expression, accidental exposure from a low neckline",
+    "bra_sheer": "wearing a thin white shirt or blouse under bright sunlight, the faint contour and color of a lace bra slightly visible through the translucent fabric, natural everyday sheer",
+    "vpl": "wearing tight pants, sweatpants or tight skirt, the subtle outline of panty line (VPL) faintly visible on the rear contour, realistic physical texture, shot from behind or side-back",
+    "button_gap": "wearing a slightly tight button-down shirt or cardigan, a small natural gap opening between the buttons around the chest area when viewed from the side, revealing a tiny glimpse of bare skin or inner wear",
+    "relaxed_leg_gap": "sitting completely relaxed at home with legs crossed or hugging knees (gymnast seating), short pants riding up, offering a subtle glimpse of inner thigh and the dark crotch area shadow, totally unguarded",
+    "bending_over_back": "bending forward at the waist to pick something up from the floor without bending knees, tight skirt riding up, emphasizing hips and rear contour, shot from slightly lower back angle",
+    "mid_undress": "caught in the middle of taking off a top, arms stuck in the shirt raised above the head, torso and lower stomach completely exposed, ruffled hair, vulnerable and defenseless posture"
   },
   "fetish_modifiers": {
     "wet_sheer": "clothing slightly dampened by rain or water splash, fabric clinging to skin and becoming subtly translucent, water droplets visible on skin and fabric surface, glistening wet texture",
@@ -76,7 +88,16 @@
     "towel_wrap": "wrapped in a large fluffy white bath towel after bathing, bare shoulders and collarbone visible above towel edge, damp skin with water droplets, hair slightly wet",
     "wet_hair": "hair dampened by sudden rain, wet strands clinging to face and neck, water droplets on skin, natural and candid rain-caught moment",
     "morning_stretch": "stretching arms upward in thin sleepwear just after waking up, fabric riding up naturally, sleepy relaxed expression, soft morning light",
-    "steam_bath": "in a steamy bathroom environment, skin dewy from steam and warmth, towel wrapped around body, condensation on nearby surfaces, dreamy soft-focus atmosphere"
+    "steam_bath": "in a steamy bathroom environment, skin dewy from steam and warmth, towel wrapped around body, condensation on nearby surfaces, dreamy soft-focus atmosphere",
+    "armpits": "raising arms slightly, revealing clean smooth underarms, wearing sleeveless top or camisole, natural relaxing body language",
+    "collarbone": "wide or low neckline emphasizing elegant collarbones and delicate upper chest area, soft shadows highlighting bone structure",
+    "see_through": "wearing sheer translucent fabric over beautiful curves, subtle lace or mesh details, light passing gently through clothing",
+    "glasses_slip": "wearing stylish glasses slightly slipping down the bridge of nose, looking over the rims with a soft gaze, intellectual but relaxed",
+    "pantyhose_feet": "standing in high heels or barefoot wearing sheer pantyhose, tight skirt, office lady aesthetics emphasizing nylon texture",
+    "rib_knit_bust": "wearing a very tight ribbed knit sweater, the fabric stretching around the bust, heavily emphasizing the natural curve and volume of the chest, no skin exposure but extremely sensual shape",
+    "adjusting_strap": "hand reaching under the clothes neckline or collar to casually adjust a slipping bra strap, an intimate and very private everyday gesture, unaware expression",
+    "hands_between_thighs": "sitting down while sandwiching both hands casually between bare inner thighs for warmth, conveying soft flesh texture and body temperature, cozy and intimate posture",
+    "touching_lips": "lightly sweeping a stray hair from wet lips with a finger, or wiping the corner of the mouth, bringing intense visual focus to the soft lips and delicate finger gesture, captivating gaze"
   },
   "camera_presets": {
     "low_angle": "shot from slightly below eye level looking up, 35mm wide-angle lens, natural perspective distortion, emphasizing legs and figure",

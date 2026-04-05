@@ -54,6 +54,17 @@ import { FactorySnapshotRepository } from './storage/factory-snapshot.repository
 import { FactoryFlow, FactoryFlowSchema } from './storage/flow.schema'
 import { FactoryPostSnapshot, FactoryPostSnapshotSchema } from './storage/post-snapshot.schema'
 
+import { FactoryBeautyCharactersController } from './factory-beauty-characters.controller'
+import { FactoryBeautyCharactersService } from './factory-beauty-characters.service'
+import { FactoryBeautyTemplatesController } from './factory-beauty-templates.controller'
+import { FactoryBeautyTemplatesService } from './factory-beauty-templates.service'
+import { FactoryBeautyCalendarController } from './factory-beauty-calendar.controller'
+import { FactoryBeautyCalendarService } from './factory-beauty-calendar.service'
+import { FactoryBeautyMonetizationController } from './factory-beauty-monetization.controller'
+import { FactoryBeautyMonetizationService } from './factory-beauty-monetization.service'
+import { FactoryBeautyComfyuiService } from './factory-beauty-comfyui.service'
+
+
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -69,6 +80,10 @@ import { FactoryPostSnapshot, FactoryPostSnapshotSchema } from './storage/post-s
     FactoryFlowController,
     FactoryMcpController,
     FactorySettingsController,
+    FactoryBeautyCharactersController,
+    FactoryBeautyTemplatesController,
+    FactoryBeautyCalendarController,
+    FactoryBeautyMonetizationController,
   ],
   providers: [
     MediaService,
@@ -111,6 +126,11 @@ import { FactoryPostSnapshot, FactoryPostSnapshotSchema } from './storage/post-s
     FactoryEnqueueScheduler,
     FactoryImmediatePublishConsumer,
     FactoryFinalizePublishConsumer,
+    FactoryBeautyCharactersService,
+    FactoryBeautyTemplatesService,
+    FactoryBeautyCalendarService,
+    FactoryBeautyMonetizationService,
+    FactoryBeautyComfyuiService,
     {
       provide: LegacyPublishRecordService,
       useExisting: FactoryPublishRecordService,

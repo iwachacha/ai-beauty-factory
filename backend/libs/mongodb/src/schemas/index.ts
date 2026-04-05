@@ -39,6 +39,11 @@ import {
   User,
   UserSchema,
 } from './user.schema'
+import { AiBeautyCharacter, AiBeautyCharacterSchema } from './ai-beauty-character.schema'
+import { AiBeautyTemplate, AiBeautyTemplateSchema } from './ai-beauty-template.schema'
+import { AiBeautyCalendar, AiBeautyCalendarSchema } from './ai-beauty-calendar.schema'
+import { AiBeautyMonetization, AiBeautyMonetizationSchema } from './ai-beauty-monetization.schema'
+import { AiBeautyComfyuiJob, AiBeautyComfyuiJobSchema } from './ai-beauty-comfyui-job.schema'
 
 export * from './account-group.schema'
 export * from './account.schema'
@@ -69,6 +74,11 @@ export * from './reply-comment-record.schema'
 export * from './timestamp.schema'
 export * from './user-notification-control.schema'
 export * from './user.schema'
+export * from './ai-beauty-character.schema'
+export * from './ai-beauty-template.schema'
+export * from './ai-beauty-calendar.schema'
+export * from './ai-beauty-monetization.schema'
+export * from './ai-beauty-comfyui-job.schema'
 
 export const schemas = [
   { name: User.name, schema: UserSchema },
@@ -98,4 +108,9 @@ export const schemas = [
   { name: EngagementSubTask.name, schema: EngagementSubTaskSchema },
   { name: InteractionRecord.name, schema: InteractionRecordSchema },
   { name: ReplyCommentRecord.name, schema: ReplyCommentRecordSchema },
+  { name: AiBeautyCharacter.name, schema: AiBeautyCharacterSchema },
+  { name: AiBeautyTemplate.name, schema: AiBeautyTemplateSchema },
+  { name: AiBeautyCalendar.name, schema: AiBeautyCalendarSchema },
+  { name: AiBeautyMonetization.name, schema: AiBeautyMonetizationSchema },
+  { name: AiBeautyComfyuiJob.name, schema: AiBeautyComfyuiJobSchema },
 ] as const
