@@ -1,0 +1,113 @@
+{
+  "characters": {
+    "yuna": {
+      "name_display": "Yuna (ユナ)",
+      "nationality": "Japanese",
+      "age": 24,
+      "occupation": "IT company office worker",
+      "face": "oval face, soft gentle features, natural light makeup, warm brown eyes, slight dimples when smiling",
+      "hair": "long black hair with subtle chestnut highlights, slightly wavy, often worn down or in a loose ponytail",
+      "body": "slender figure, fair porcelain skin, graceful posture",
+      "personality_note": "おっとり天然・照れ屋 — 表情は柔らかく恥じらいのある自然な笑顔を基本とする",
+      "default_outfit": "fitted grey pencil skirt above the knee, white silk blouse, black thigh-high stockings",
+      "signature_chiralism": ["zettai_ryouiki", "off_shoulder"],
+      "signature_fetish": ["dewy_skin", "neck_sweat"],
+      "lora_trigger": "",
+      "lora_weight": 0.7
+    },
+    "soojin": {
+      "name_display": "Soojin (スジン)",
+      "nationality": "Korean",
+      "age": 23,
+      "occupation": "café barista and aspiring model",
+      "face": "heart-shaped face, sharp defined jawline, minimal dewy makeup, elegant monolid eyes with subtle eyeliner",
+      "hair": "straight dark brown hair, shoulder length, center part, silky smooth texture",
+      "body": "slim toned figure, porcelain white skin, long legs",
+      "personality_note": "クール計算高い・たまに見せる天然ギャップ — 表情はクールな横顔やふとした瞬間の素の笑顔",
+      "default_outfit": "pleated mini skirt, oversized knit sweater falling off one shoulder, ankle boots",
+      "signature_chiralism": ["wind_skirt", "sitting_cross", "off_shoulder"],
+      "signature_fetish": ["wet_hair", "wet_sheer"],
+      "lora_trigger": "",
+      "lora_weight": 0.7
+    },
+    "mei": {
+      "name_display": "Mei (メイ)",
+      "nationality": "Taiwanese",
+      "age": 22,
+      "occupation": "graduate student in literature",
+      "face": "round soft face, delicate features, light natural makeup with rosy cheeks, large expressive dark eyes",
+      "hair": "long straight jet-black hair reaching mid-back, often with a side braid or hair clip",
+      "body": "petite figure, smooth warm-toned skin, delicate frame",
+      "personality_note": "知的好奇心旺盛・本の虫 — 表情は集中した横顔や本を読みながらの無防備な姿",
+      "default_outfit": "floral cheongsam-inspired dress, white cotton blouse, pleated skirt, mary jane shoes",
+      "signature_chiralism": ["yukata_gap", "back_line"],
+      "signature_fetish": ["dewy_skin", "morning_stretch"],
+      "lora_trigger": "",
+      "lora_weight": 0.7
+    },
+    "riko": {
+      "name_display": "Riko (りこ)",
+      "nationality": "Japanese",
+      "age": 26,
+      "occupation": "nurse at a general hospital",
+      "face": "mature elegant features, defined cheekbones, natural no-makeup look, calm confident brown eyes",
+      "hair": "medium-length dark brown hair, usually tied in a low bun or loose waves when off-duty",
+      "body": "well-proportioned figure, healthy glowing skin, confident posture",
+      "personality_note": "世話焼き姉御・頼れるお姉さん — 表情は穏やかな微笑みや疲れた後のリラックス顔",
+      "default_outfit": "white nurse uniform with fitted waist, white stockings, comfortable shoes",
+      "signature_chiralism": ["zettai_ryouiki", "sitting_cross"],
+      "signature_fetish": ["wet_sheer", "neck_sweat", "towel_wrap", "steam_bath"],
+      "lora_trigger": "",
+      "lora_weight": 0.7
+    }
+  },
+  "chiralism_modifiers": {
+    "zettai_ryouiki": "thigh-high stockings with a clearly visible gap of bare skin between the stocking top and the skirt hem, the absolute territory zone highlighted by natural lighting",
+    "off_shoulder": "loose oversized sweater or knit top naturally slipping off one shoulder, revealing smooth collarbone and shoulder line, casual and unintentional",
+    "yukata_gap": "traditional yukata with the collar naturally falling slightly open near the nape, showing a glimpse of the elegant neck line and upper back, traditional and graceful",
+    "wind_skirt": "a light breeze catching the hem of a pleated skirt, the fabric lifting and flowing naturally with the wind, capturing the moment of movement",
+    "back_line": "backless dress or top revealing the smooth curve of shoulder blades and upper back, elegant spine line visible",
+    "sitting_cross": "sitting with legs crossed on a chair or bench, skirt naturally riding up slightly on the thigh, relaxed casual posture"
+  },
+  "fetish_modifiers": {
+    "wet_sheer": "clothing slightly dampened by rain or water splash, fabric clinging to skin and becoming subtly translucent, water droplets visible on skin and fabric surface, glistening wet texture",
+    "dewy_skin": "skin glistening with a thin sheen of perspiration, naturally dewy and luminous, tiny beads of sweat catching the light, healthy post-exercise glow",
+    "neck_sweat": "delicate beads of sweat trailing down the nape of the neck and collarbone area, skin gleaming in warm lighting, hair slightly sticking to the damp neck",
+    "towel_wrap": "wrapped in a large fluffy white bath towel after bathing, bare shoulders and collarbone visible above towel edge, damp skin with water droplets, hair slightly wet",
+    "wet_hair": "hair dampened by sudden rain, wet strands clinging to face and neck, water droplets on skin, natural and candid rain-caught moment",
+    "morning_stretch": "stretching arms upward in thin sleepwear just after waking up, fabric riding up naturally, sleepy relaxed expression, soft morning light",
+    "steam_bath": "in a steamy bathroom environment, skin dewy from steam and warmth, towel wrapped around body, condensation on nearby surfaces, dreamy soft-focus atmosphere"
+  },
+  "camera_presets": {
+    "low_angle": "shot from slightly below eye level looking up, 35mm wide-angle lens, natural perspective distortion, emphasizing legs and figure",
+    "eye_level": "eye-level portrait composition, 85mm prime lens, f/1.8 aperture, beautiful shallow depth of field with creamy bokeh",
+    "from_behind": "shot from behind at a natural three-quarter angle, 50mm standard lens, capturing the back and profile, environmental context visible",
+    "close_up": "intimate close-up portrait, 85mm lens, f/1.4 wide aperture, extreme bokeh background, focus on face and upper body details",
+    "full_body": "full body environmental portrait, 35mm lens, f/2.8, showing the complete figure within the scene context, natural framing"
+  },
+  "mood_presets": {
+    "casual_daily": "soft natural daylight streaming through a window, warm indoor atmosphere, cozy lived-in environment, natural color temperature",
+    "golden_hour": "warm golden hour sunlight with long shadows, rich orange and amber tones, outdoor setting, natural lens flare, romantic atmosphere",
+    "rainy_day": "overcast diffused light through rain-spotted windows, moody cool tones, wet reflective surfaces, atmospheric rain falling, melancholic beauty",
+    "night_city": "colorful neon city lights creating vibrant bokeh in background, nighttime urban setting, dramatic artificial lighting mixing warm and cool tones",
+    "summer_heat": "intense bright summer sunlight, heat haze visible, high contrast shadows, vivid colors, blue sky, cicada-summer atmosphere",
+    "summer_festival": "warm paper lantern lighting at a Japanese summer festival, evening twilight glow, festive atmosphere, red and gold warm tones",
+    "morning_light": "soft early morning light through sheer curtains, gentle warm glow, peaceful quiet atmosphere, bedroom or living room setting"
+  },
+  "negative_base": "(worst quality, low quality:1.4), (blurry, out of focus:1.2), cartoon, anime, 3d render, cgi, illustration, painting, drawing, sketch, plastic skin, artificial skin, doll-like, mannequin, bad anatomy, deformed, mutated, extra limbs, missing limbs, fused fingers, too many fingers, disfigured, watermark, text, signature, logo, username, airbrushed, overly smooth skin, uncanny valley, cross-eyed, bad proportions",
+  "negative_sfw_addition": "nude, naked, explicit, nsfw, pornographic, sexual content, nipple, genitalia, underwear clearly visible, fully transparent clothing, lingerie as main outfit",
+  "negative_fetish_limits": "fully nude, explicit sexual pose, pornographic, genitalia visible, nipple fully exposed",
+  "generation_defaults": {
+    "sampler": "DPM++ 2M Karras",
+    "steps": 30,
+    "cfg_scale": 7.0,
+    "resolution_portrait": "832x1216",
+    "resolution_landscape": "1216x832",
+    "resolution_square": "1024x1024",
+    "upscaler": "R-ESRGAN 4x-UltraSharp",
+    "upscale_factor": 2.0,
+    "ip_adapter_weight": 0.6,
+    "controlnet_weight": 0.8,
+    "adetailer_confidence": 0.5
+  }
+}
