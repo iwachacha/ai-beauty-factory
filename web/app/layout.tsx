@@ -4,8 +4,8 @@ import './globals.css'
 import { FactoryProvider } from '../components/factory-provider'
 
 export const metadata: Metadata = {
-  title: 'SNS Factory',
-  description: 'Mobile-first personal SNS posting factory',
+  title: 'AI Beauty Factory',
+  description: 'AI Beauty Monetization Management Dashboard',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {

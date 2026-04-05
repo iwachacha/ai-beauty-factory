@@ -71,10 +71,10 @@ export function FactoryShell({
         >
           <div style={{ marginBottom: 24 }}>
             <div style={{ fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--brand)' }}>
-              Personal Factory
+              AI Beauty Studio
             </div>
             <h1 style={{ margin: '8px 0 0', fontFamily: 'var(--font-display), sans-serif', fontSize: 28 }}>
-              SNS Ops
+              Monetization
             </h1>
           </div>
           <nav style={{ display: 'grid', gap: 8 }}>
