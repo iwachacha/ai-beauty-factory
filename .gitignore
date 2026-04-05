@@ -2,8 +2,6 @@ backend/node_modules/
 backend/dist/
 backend/.nx/
 backend/tmp/
-backend/apps/aitoearn-server/node_modules/
-backend/apps/factory-server/node_modules/
 web/node_modules/
 web/.next/
 *.log
@@ -13,6 +11,7 @@ web/.next/
 
 # AI image generation
 generated_images/
+outputs/
 models/
 *.safetensors
 *.ckpt

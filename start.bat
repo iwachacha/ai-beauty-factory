@@ -1,6 +1,6 @@
 @echo off
 echo ==========================================
-echo SNS Factory - Start Script
+echo AI Beauty Factory - Start Script
 echo ==========================================
 
 echo [1/4] Copying .env to backend...
@@ -16,11 +16,11 @@ if %errorlevel% neq 0 (
 )
 
 echo [3/4] Starting Backend Server...
-start "SNS Factory - Backend" cmd /k "powershell -NoProfile -ExecutionPolicy Bypass -File apps/factory-server/scripts/run-local.ps1"
+start "AI Beauty Factory - Backend" cmd /k "powershell -NoProfile -ExecutionPolicy Bypass -File apps/factory-server/scripts/run-local.ps1"
 
 echo [4/4] Starting Frontend Web Server...
 cd ..
-start "SNS Factory - Web" cmd /k "cd web && npm run dev"
+start "AI Beauty Factory - Web" cmd /k "cd web && npm run dev"
 
 echo.
 echo ==========================================

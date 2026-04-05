@@ -55,7 +55,7 @@ try {
   for ($i = 0; $i -lt 45; $i++) {
     Start-Sleep -Seconds 2
     try {
-      $r = Invoke-WebRequest -Uri 'http://127.0.0.1:6070/accounts' -UseBasicParsing -TimeoutSec 3
+      $r = Invoke-WebRequest -Uri 'http://127.0.0.1:6070/characters' -UseBasicParsing -TimeoutSec 3
       if ($r.StatusCode -eq 200) {
         $webReady = $true
         break
@@ -74,13 +74,17 @@ try {
 
   $accounts = Invoke-RestMethod -Uri 'http://127.0.0.1:3012/api/accounts' -Headers $headers -Method Get
   $assets = Invoke-RestMethod -Uri 'http://127.0.0.1:3012/api/content/assets' -Headers $headers -Method Get
-  $page = Invoke-WebRequest -Uri 'http://127.0.0.1:6070/accounts' -UseBasicParsing
+  $characters = Invoke-RestMethod -Uri 'http://127.0.0.1:3012/api/beauty/characters' -Headers $headers -Method Get -ErrorAction SilentlyContinue
+  $templates = Invoke-RestMethod -Uri 'http://127.0.0.1:3012/api/beauty/templates' -Headers $headers -Method Get -ErrorAction SilentlyContinue
+  $page = Invoke-WebRequest -Uri 'http://127.0.0.1:6070/characters' -UseBasicParsing
 
   Write-Host "backend_ready=$backendReady"
   Write-Host "web_ready=$webReady"
   Write-Host "token_present=$([string]::IsNullOrWhiteSpace($token) -eq $false)"
   Write-Host "accounts_count=$($accounts.data.Count)"
   Write-Host "assets_count=$($assets.data.Count)"
+  Write-Host "beauty_characters=$($characters.data.Count)"
+  Write-Host "beauty_templates=$($templates.data.Count)"
   Write-Host "has_mobile_nav=$($page.Content -match 'factory-bottom-nav')"
 }
 finally {

@@ -6,15 +6,15 @@
         "id": "office_01",
         "description": "picking up dropped documents from the floor in a modern open-plan office, bending forward naturally with one hand on knee",
         "recommended_characters": ["yuna"],
-        "recommended_chiralism": ["zettai_ryouiki"],
+        "recommended_chiralism": ["zettai_ryouiki", "bending_over_back"],
         "recommended_camera": "low_angle"
       },
       {
         "id": "office_02",
         "description": "stretching arms above head while sitting at a sleek modern desk, arching back and looking at the ceiling, late afternoon",
         "recommended_characters": ["yuna"],
-        "recommended_chiralism": ["off_shoulder"],
-        "recommended_fetish": ["dewy_skin"],
+        "recommended_chiralism": ["off_shoulder", "hair_tie"],
+        "recommended_fetish": ["dewy_skin", "armpits"],
         "recommended_camera": "eye_level"
       },
       {
@@ -22,22 +22,46 @@
         "description": "adjusting a high-heel shoe strap while standing in a minimalist office hallway, one foot raised on a low bench",
         "recommended_characters": ["yuna", "soojin"],
         "recommended_chiralism": ["zettai_ryouiki"],
+        "recommended_fetish": ["pantyhose_feet"],
         "recommended_camera": "low_angle"
       },
       {
         "id": "office_04",
         "description": "reaching for a high shelf in a clean modern office archive room, standing on tiptoes with arms extended upward",
         "recommended_characters": ["yuna"],
-        "recommended_chiralism": ["back_line"],
-        "recommended_fetish": ["morning_stretch"],
+        "recommended_chiralism": ["back_line", "hair_tie"],
+        "recommended_fetish": ["morning_stretch", "armpits"],
         "recommended_camera": "from_behind"
       },
       {
         "id": "office_05",
         "description": "sitting at desk wiping forehead after a long meeting in a warm office, drinking iced water, air conditioning broken",
         "recommended_characters": ["yuna", "riko"],
+        "recommended_chiralism": ["bra_sheer", "button_gap"],
         "recommended_fetish": ["dewy_skin", "neck_sweat"],
         "recommended_camera": "close_up"
+      },
+      {
+        "id": "office_06",
+        "description": "leaning forward over the desk to check a colleague's monitor, loose blouse falling open naturally, helpful expression",
+        "recommended_characters": ["yuna", "riko"],
+        "recommended_chiralism": ["leaning_cleavage", "cleavage_top"],
+        "recommended_camera": "eye_level"
+      },
+      {
+        "id": "office_07",
+        "description": "walking briskly down an office corridor in a tight pencil skirt and heels, confident stride, rear three-quarter angle",
+        "recommended_characters": ["yuna", "soojin"],
+        "recommended_chiralism": ["vpl"],
+        "recommended_fetish": ["pantyhose_feet", "rib_knit_bust"],
+        "recommended_camera": "from_behind"
+      },
+      {
+        "id": "office_08",
+        "description": "casually adjusting bra strap through the neckline of a blouse at her desk, looking at screen, unaware of being observed",
+        "recommended_characters": ["yuna"],
+        "recommended_fetish": ["adjusting_strap"],
+        "recommended_camera": "eye_level"
       }
     ]
   },
@@ -48,27 +72,29 @@
         "id": "commute_01",
         "description": "standing in a train holding the overhead strap with one hand, looking at phone, other passengers blurred in background",
         "recommended_characters": ["yuna", "soojin"],
-        "recommended_chiralism": ["zettai_ryouiki"],
+        "recommended_chiralism": ["zettai_ryouiki", "hair_tie"],
+        "recommended_fetish": ["armpits"],
         "recommended_camera": "low_angle"
       },
       {
         "id": "commute_02",
         "description": "walking up stone steps at a quiet neighborhood shrine, natural stride, cherry blossom petals drifting in the air",
         "recommended_characters": ["mei", "yuna"],
-        "recommended_chiralism": ["wind_skirt"],
+        "recommended_chiralism": ["wind_skirt", "panty_flash"],
         "recommended_camera": "from_behind"
       },
       {
         "id": "commute_03",
         "description": "waiting at a crosswalk in a modern Japanese city, sudden gust of wind catching hair and skirt hem, surprised expression",
         "recommended_characters": ["soojin"],
-        "recommended_chiralism": ["wind_skirt"],
+        "recommended_chiralism": ["wind_skirt", "panty_flash"],
         "recommended_camera": "full_body"
       },
       {
         "id": "commute_04",
         "description": "caught in a sudden summer rain without umbrella on a quiet residential street, clothes getting damp, running toward shelter",
         "recommended_characters": ["soojin", "yuna", "mei"],
+        "recommended_chiralism": ["bra_sheer"],
         "recommended_fetish": ["wet_sheer", "wet_hair"],
         "recommended_camera": "full_body",
         "recommended_mood": "rainy_day"
@@ -77,7 +103,7 @@
         "id": "commute_05",
         "description": "sitting on a park bench in summer heat, fanning self with a small fan, legs crossed, shade of a large tree",
         "recommended_characters": ["mei", "soojin"],
-        "recommended_chiralism": ["sitting_cross"],
+        "recommended_chiralism": ["sitting_cross", "thigh_squish"],
         "recommended_fetish": ["dewy_skin", "neck_sweat"],
         "recommended_camera": "eye_level",
         "recommended_mood": "summer_heat"
@@ -91,28 +117,29 @@
         "id": "cafe_01",
         "description": "sitting at a cozy window seat in a warm aesthetic café, legs crossed under a small round wooden table, sipping iced latte",
         "recommended_characters": ["soojin", "mei"],
-        "recommended_chiralism": ["sitting_cross"],
+        "recommended_chiralism": ["sitting_cross", "thigh_squish"],
         "recommended_camera": "eye_level"
       },
       {
         "id": "cafe_02",
         "description": "reaching across a small café table to grab a coffee cup, leaning forward naturally, afternoon sunlight through window",
         "recommended_characters": ["soojin"],
-        "recommended_chiralism": ["off_shoulder"],
+        "recommended_chiralism": ["leaning_cleavage", "off_shoulder"],
         "recommended_camera": "close_up"
       },
       {
         "id": "cafe_03",
         "description": "standing behind the café counter making pour-over coffee, steam rising from the kettle, focused expression, barista apron",
         "recommended_characters": ["soojin"],
-        "recommended_fetish": ["dewy_skin"],
+        "recommended_fetish": ["dewy_skin", "collarbone"],
         "recommended_camera": "eye_level"
       },
       {
         "id": "cafe_04",
         "description": "reading a thick novel in a quiet corner of a bookshelf café, completely absorbed, legs tucked under on a cushion seat",
         "recommended_characters": ["mei"],
-        "recommended_chiralism": ["sitting_cross"],
+        "recommended_chiralism": ["relaxed_leg_gap"],
+        "recommended_fetish": ["glasses_slip"],
         "recommended_camera": "from_behind"
       }
     ]
@@ -124,7 +151,8 @@
         "id": "home_01",
         "description": "stretching on the living room floor in casual loungewear after waking up, morning sunlight streaming through sheer curtains",
         "recommended_characters": ["yuna", "riko"],
-        "recommended_fetish": ["morning_stretch"],
+        "recommended_chiralism": ["shoulder_slip"],
+        "recommended_fetish": ["morning_stretch", "armpits"],
         "recommended_camera": "full_body",
         "recommended_mood": "morning_light"
       },
@@ -132,7 +160,7 @@
         "id": "home_02",
         "description": "cooking in a small apartment kitchen wearing an apron over casual clothes, steam rising from a pot, warm kitchen lighting",
         "recommended_characters": ["riko", "yuna"],
-        "recommended_fetish": ["dewy_skin"],
+        "recommended_fetish": ["dewy_skin", "collarbone"],
         "recommended_camera": "eye_level"
       },
       {
@@ -147,14 +175,16 @@
         "id": "home_04",
         "description": "lying on the couch scrolling phone in an oversized t-shirt, legs draped over the armrest, relaxed afternoon at home",
         "recommended_characters": ["soojin", "mei"],
-        "recommended_chiralism": ["off_shoulder"],
+        "recommended_chiralism": ["off_shoulder", "relaxed_leg_gap"],
+        "recommended_fetish": ["hands_between_thighs"],
         "recommended_camera": "eye_level"
       },
       {
         "id": "home_05",
         "description": "doing yoga stretches on a mat near a window, wearing fitted workout clothes, morning sun creating rim lighting",
         "recommended_characters": ["soojin", "riko"],
-        "recommended_fetish": ["dewy_skin", "morning_stretch"],
+        "recommended_chiralism": ["back_line"],
+        "recommended_fetish": ["dewy_skin", "morning_stretch", "rib_knit_bust"],
         "recommended_camera": "full_body",
         "recommended_mood": "morning_light"
       },
@@ -162,8 +192,42 @@
         "id": "home_06",
         "description": "relaxing in a steamy bathroom, soaking in a small Japanese-style bathtub, only shoulders and face visible above water, dreamy atmosphere",
         "recommended_characters": ["riko", "yuna"],
-        "recommended_fetish": ["steam_bath"],
+        "recommended_fetish": ["steam_bath", "collarbone"],
         "recommended_camera": "close_up"
+      },
+      {
+        "id": "home_07",
+        "description": "sitting cross-legged on the bedroom floor in short pants sorting laundry, completely relaxed and unguarded, warm room light",
+        "recommended_characters": ["mei", "yuna"],
+        "recommended_chiralism": ["relaxed_leg_gap", "shoulder_slip"],
+        "recommended_camera": "eye_level",
+        "recommended_mood": "morning_light"
+      },
+      {
+        "id": "home_08",
+        "description": "in the middle of pulling off a sweater in the bedroom, arms tangled above head, midriff and lower chest exposed, tousled hair",
+        "recommended_characters": ["yuna", "soojin"],
+        "recommended_chiralism": ["mid_undress"],
+        "recommended_camera": "eye_level",
+        "recommended_mood": "morning_light"
+      },
+      {
+        "id": "home_09",
+        "description": "sitting on the edge of the bed hands sandwiched between bare thighs, looking at phone sleepily, wearing only an oversized tee",
+        "recommended_characters": ["mei", "yuna"],
+        "recommended_chiralism": ["thigh_squish"],
+        "recommended_fetish": ["hands_between_thighs"],
+        "recommended_camera": "eye_level",
+        "recommended_mood": "morning_light"
+      },
+      {
+        "id": "home_10",
+        "description": "standing before a mirror tying hair up with a rubber band held in mouth, wearing a camisole, morning routine moment",
+        "recommended_characters": ["riko", "yuna"],
+        "recommended_chiralism": ["hair_tie"],
+        "recommended_fetish": ["armpits", "collarbone", "touching_lips"],
+        "recommended_camera": "eye_level",
+        "recommended_mood": "morning_light"
       }
     ]
   },
@@ -174,13 +238,14 @@
         "id": "outdoor_01",
         "description": "crouching to pet a stray cat on a quiet residential street lined with traditional houses, natural sunlight",
         "recommended_characters": ["yuna", "mei"],
-        "recommended_chiralism": ["zettai_ryouiki"],
+        "recommended_chiralism": ["zettai_ryouiki", "leaning_cleavage"],
         "recommended_camera": "low_angle"
       },
       {
         "id": "outdoor_02",
         "description": "walking along a riverbank in the summer evening heat, wiping sweat from forehead, golden sunset reflecting on water",
         "recommended_characters": ["riko", "soojin"],
+        "recommended_chiralism": ["bra_sheer"],
         "recommended_fetish": ["dewy_skin", "neck_sweat"],
         "recommended_camera": "full_body",
         "recommended_mood": "golden_hour"
@@ -190,7 +255,7 @@
         "description": "sitting on a seaside rock in a light sundress, ocean spray creating a misty atmosphere, wind tousling hair",
         "recommended_characters": ["mei", "soojin"],
         "recommended_chiralism": ["wind_skirt"],
-        "recommended_fetish": ["wet_sheer"],
+        "recommended_fetish": ["wet_sheer", "see_through"],
         "recommended_camera": "full_body",
         "recommended_mood": "summer_heat"
       },
@@ -198,9 +263,18 @@
         "id": "outdoor_04",
         "description": "running through a park sprinkler on a hot summer day, laughing, clothes getting splashed with water",
         "recommended_characters": ["mei", "soojin"],
+        "recommended_chiralism": ["bra_sheer"],
         "recommended_fetish": ["wet_sheer", "wet_hair"],
         "recommended_camera": "full_body",
         "recommended_mood": "summer_heat"
+      },
+      {
+        "id": "outdoor_05",
+        "description": "bending forward to pick up a dropped phone on a sunny street, wearing a short skirt, rear view with natural hip emphasis",
+        "recommended_characters": ["soojin", "yuna"],
+        "recommended_chiralism": ["bending_over_back", "panty_flash"],
+        "recommended_camera": "from_behind",
+        "recommended_mood": "casual_daily"
       }
     ]
   },
@@ -212,6 +286,7 @@
         "description": "walking through Japanese summer festival stalls wearing a colorful yukata, paper fan in hand, evening paper lantern lighting",
         "recommended_characters": ["yuna", "mei"],
         "recommended_chiralism": ["yukata_gap"],
+        "recommended_fetish": ["neck_sweat", "collarbone"],
         "recommended_camera": "full_body",
         "recommended_mood": "summer_festival"
       },
@@ -220,6 +295,7 @@
         "description": "standing under a cherry blossom tree in full bloom, petals drifting in the breeze and landing in hair, spring light",
         "recommended_characters": ["yuna", "mei"],
         "recommended_chiralism": ["wind_skirt"],
+        "recommended_fetish": ["touching_lips"],
         "recommended_camera": "full_body",
         "recommended_mood": "golden_hour"
       },
@@ -227,6 +303,7 @@
         "id": "season_valentines",
         "description": "holding a small wrapped gift bag in both hands, looking away shyly with a faint blush, indoor warm lighting",
         "recommended_characters": ["yuna", "mei"],
+        "recommended_fetish": ["rib_knit_bust", "touching_lips"],
         "recommended_camera": "close_up",
         "recommended_mood": "morning_light"
       },
@@ -234,8 +311,8 @@
         "id": "season_beach",
         "description": "sitting on a beach towel in a light summer dress, waves lapping in the background, sun-kissed skin, beach umbrella shade",
         "recommended_characters": ["soojin", "riko"],
-        "recommended_chiralism": ["sitting_cross"],
-        "recommended_fetish": ["dewy_skin"],
+        "recommended_chiralism": ["sitting_cross", "thigh_squish"],
+        "recommended_fetish": ["dewy_skin", "see_through"],
         "recommended_camera": "eye_level",
         "recommended_mood": "summer_heat"
       },
@@ -243,6 +320,7 @@
         "id": "season_rain",
         "description": "sheltering under a small awning during a sudden intense summer downpour, watching the rain, clothes partially damp from the splash",
         "recommended_characters": ["soojin", "yuna"],
+        "recommended_chiralism": ["bra_sheer"],
         "recommended_fetish": ["wet_sheer", "wet_hair"],
         "recommended_camera": "eye_level",
         "recommended_mood": "rainy_day"
@@ -251,6 +329,7 @@
         "id": "season_winter",
         "description": "adjusting a wool scarf near the collar in cold winter air, breath visible as white mist, rosy cheeks, city illumination in background",
         "recommended_characters": ["soojin", "riko"],
+        "recommended_fetish": ["rib_knit_bust", "collarbone"],
         "recommended_camera": "close_up",
         "recommended_mood": "night_city"
       }
