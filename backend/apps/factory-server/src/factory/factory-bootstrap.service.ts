@@ -16,16 +16,26 @@ export class FactoryBootstrapService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
+    this.warnInsecureDefaults()
     const admin = await this.ensureAdminUser()
     await this.accountGroupService.getDefaultGroup(admin.id)
     await this.materialGroupService.ensureDefaultGroup(admin.id)
   }
 
+  private warnInsecureDefaults() {
+    if (config.auth.secret === 'factory-dev-secret') {
+      this.logger.warn('JWT_SECRET is using the default value. Set a strong secret via the JWT_SECRET environment variable before deploying.')
+    }
+    if (config.factory.admin.password === 'changeme123') {
+      this.logger.warn('FACTORY_ADMIN_PASSWORD is using the default value. Change it via the FACTORY_ADMIN_PASSWORD environment variable.')
+    }
+  }
+
   private async ensureAdminUser() {
     const existing = await this.userRepository.getByMail(config.factory.admin.email, true)
-    const encrypted = encryptPassword(config.factory.admin.password, existing?.salt)
 
     if (!existing) {
+      const encrypted = encryptPassword(config.factory.admin.password)
       const created = await this.userRepository.create({
         mail: config.factory.admin.email,
         name: config.factory.admin.name,
@@ -40,13 +50,19 @@ export class FactoryBootstrapService implements OnModuleInit {
       return created
     }
 
-    const updated = await this.userRepository.updateById(existing.id, {
+    // Always sync admin credentials from config on every startup
+    const encrypted = encryptPassword(config.factory.admin.password)
+    const updates: Record<string, unknown> = {
       name: config.factory.admin.name,
-      password: encrypted.password,
-      salt: encrypted.salt,
       status: UserStatus.OPEN,
       isDelete: false,
-    })
+      password: encrypted.password,
+      salt: encrypted.salt,
+    }
+
+    const updated = await this.userRepository.updateById(existing.id, updates)
+    this.logger.log(`Synced factory admin user: ${existing.mail}`)
     return updated ?? existing
   }
 }
+

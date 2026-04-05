@@ -8,11 +8,11 @@ import { factoryFetch } from '../lib/factory-api'
 import { useFactory } from './factory-provider'
 
 const navItems = [
-  { href: '/accounts', label: 'Accounts' },
-  { href: '/library', label: 'Library' },
-  { href: '/flows', label: 'Flows' },
-  { href: '/queue', label: 'Queue' },
-  { href: '/settings', label: 'Settings' },
+  { href: '/accounts', label: 'アカウント連携', description: 'SNSアカウントの登録' },
+  { href: '/library', label: 'ライブラリー', description: '投稿素材の管理' },
+  { href: '/flows', label: '配信フロー', description: '自動投稿のルール作成' },
+  { href: '/queue', label: '実行状況', description: '配信タスクの監視' },
+  { href: '/settings', label: 'システム設定', description: '環境とセキュリティ' },
 ]
 
 export function FactoryShell({
@@ -74,23 +74,32 @@ export function FactoryShell({
             </h1>
           </div>
           <nav style={{ display: 'grid', gap: 8 }}>
-            {navItems.map(item => (
-              <Link
-                key={item.href}
-                href={item.href}
-                style={{
-                  padding: '12px 14px',
-                  borderRadius: 16,
-                  color: pathname === item.href ? 'white' : 'var(--text)',
-                  background: pathname === item.href ? 'linear-gradient(135deg, var(--brand), var(--brand-soft))' : 'transparent',
-                }}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map(item => {
+              const isActive = pathname === item.href
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  style={{
+                    display: 'block',
+                    padding: '12px 14px',
+                    borderRadius: 16,
+                    color: isActive ? 'white' : 'var(--text)',
+                    background: isActive ? 'linear-gradient(135deg, var(--brand), var(--brand-soft))' : 'transparent',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <div style={{ fontWeight: isActive ? 600 : 500, fontSize: 15 }}>{item.label}</div>
+                  <div style={{ fontSize: 11, marginTop: 2, color: isActive ? 'rgba(255,255,255,0.8)' : 'var(--muted)' }}>
+                    {item.description}
+                  </div>
+                </Link>
+              )
+            })}
           </nav>
-          <div style={{ marginTop: 24, paddingTop: 20, borderTop: '1px solid var(--line)', color: 'var(--muted)', fontSize: 14 }}>
-            {session ? `Signed in as ${session.user.name}` : 'Sign in to start posting'}
+          <div style={{ marginTop: 24, paddingTop: 20, borderTop: '1px solid var(--line)', color: 'var(--muted)', fontSize: 13 }}>
+            {session ? `ログイン中: ${session.user.name}` : '投稿を始めるにはログインしてください'}
           </div>
         </aside>
 
@@ -106,7 +115,7 @@ export function FactoryShell({
           >
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center', justifyContent: 'space-between' }}>
               <div>
-                <div style={{ fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--brand)' }}>Dashboard</div>
+                <div style={{ fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--brand)' }}>ダッシュボード</div>
                 <h2 style={{ margin: '8px 0 6px', fontFamily: 'var(--font-display), sans-serif', fontSize: 34 }}>{title}</h2>
                 <p style={{ margin: 0, color: 'var(--muted)' }}>{subtitle}</p>
               </div>
@@ -122,7 +131,7 @@ export function FactoryShell({
                     cursor: 'pointer',
                   }}
                 >
-                  Sign out
+                  ログアウト
                 </button>
               )}
             </div>
@@ -139,18 +148,18 @@ export function FactoryShell({
                     boxShadow: 'var(--shadow)',
                   }}
                 >
-                  <h3 style={{ marginTop: 0, fontFamily: 'var(--font-display), sans-serif' }}>Admin login</h3>
+                  <h3 style={{ marginTop: 0, fontFamily: 'var(--font-display), sans-serif' }}>管理者ログイン</h3>
                   <form onSubmit={handleLogin} style={{ display: 'grid', gap: 14, maxWidth: 420 }}>
                     <label style={{ display: 'grid', gap: 8 }}>
-                      <span>Email</span>
-                      <input value={email} onChange={event => setEmail(event.target.value)} style={fieldStyle} />
+                      <span style={{ fontSize: 14, fontWeight: 500 }}>メールアドレス</span>
+                      <input value={email} onChange={event => setEmail(event.target.value)} style={fieldStyle} required />
                     </label>
                     <label style={{ display: 'grid', gap: 8 }}>
-                      <span>Password</span>
-                      <input type="password" value={password} onChange={event => setPassword(event.target.value)} style={fieldStyle} />
+                      <span style={{ fontSize: 14, fontWeight: 500 }}>パスワード</span>
+                      <input type="password" value={password} onChange={event => setPassword(event.target.value)} style={fieldStyle} required />
                     </label>
                     {error && <div style={{ color: 'var(--danger)', fontSize: 14 }}>{error}</div>}
-                    <button type="submit" style={primaryButtonStyle}>Sign in</button>
+                    <button type="submit" style={primaryButtonStyle}>サインイン</button>
                   </form>
                 </section>
               )
@@ -213,7 +222,7 @@ export function FactoryShell({
   )
 }
 
-const fieldStyle: CSSProperties = {
+export const fieldStyle: CSSProperties = {
   width: '100%',
   padding: '12px 14px',
   borderRadius: 16,
@@ -245,3 +254,26 @@ export const softCardStyle: CSSProperties = {
   background: 'rgba(255,255,255,0.7)',
   border: '1px solid var(--line)',
 }
+
+export function LoadingSpinner({ label = 'Loading…' }: { label?: string }) {
+  return (
+    <section style={{ ...cardStyle, display: 'flex', alignItems: 'center', gap: 14, color: 'var(--muted)' }}>
+      <span style={{
+        display: 'inline-block',
+        width: 20,
+        height: 20,
+        border: '3px solid var(--line)',
+        borderTopColor: 'var(--brand)',
+        borderRadius: '50%',
+        animation: 'factory-spin 0.7s linear infinite',
+      }} />
+      {label}
+      <style jsx>{`
+        @keyframes factory-spin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
+    </section>
+  )
+}
+

@@ -5,8 +5,13 @@ export interface FactoryPassword {
   salt: string
 }
 
+const SALT_BYTES = 16
+const ITERATIONS = 100_000
+const KEY_LENGTH = 32
+const DIGEST = 'sha256'
+
 function makeSalt(): string {
-  return crypto.randomBytes(3).toString('base64')
+  return crypto.randomBytes(SALT_BYTES).toString('base64')
 }
 
 export function encryptPassword(
@@ -15,7 +20,7 @@ export function encryptPassword(
 ): FactoryPassword {
   const resolvedSalt = salt || makeSalt()
   const encrypted = crypto
-    .pbkdf2Sync(password, Buffer.from(resolvedSalt, 'base64'), 10000, 16, 'sha1')
+    .pbkdf2Sync(password, Buffer.from(resolvedSalt, 'base64'), ITERATIONS, KEY_LENGTH, DIGEST)
     .toString('base64')
 
   return {
@@ -29,5 +34,8 @@ export function validatePassword(
   storedSalt: string,
   password: string,
 ): boolean {
-  return encryptPassword(password, storedSalt).password === storedPassword
+  return crypto.timingSafeEqual(
+    Buffer.from(encryptPassword(password, storedSalt).password, 'base64'),
+    Buffer.from(storedPassword, 'base64'),
+  )
 }

@@ -1,3 +1,4 @@
+require('dotenv').config({ path: require('node:path').resolve(process.cwd(), '../.env') })
 const {
   REDIS_HOST = '127.0.0.1',
   REDIS_PORT = '6379',
@@ -22,14 +23,6 @@ const {
   FACTORY_ADMIN_NAME = 'Factory Admin',
   FACTORY_ASSETS_CONFIG,
   ASSETS_CONFIG,
-  AI_URL = '',
-  MAIL_USER = '',
-  MAIL_PASS = '',
-  GOOGLE_CLIENT_ID = '',
-  GOOGLE_CLIENT_SECRET = '',
-  PINTEREST_CLIENT_ID = '',
-  PINTEREST_CLIENT_SECRET = '',
-  PINTEREST_TEST_AUTHORIZATION = '',
   TIKTOK_CLIENT_ID = '',
   TIKTOK_CLIENT_SECRET = '',
   TWITTER_CLIENT_ID = '',
@@ -43,10 +36,6 @@ const {
   INSTAGRAM_CLIENT_SECRET = '',
   YOUTUBE_CLIENT_ID = '',
   YOUTUBE_CLIENT_SECRET = '',
-  ALI_SMS_ACCESS_KEY_ID = '',
-  ALI_SMS_ACCESS_KEY_SECRET = '',
-  ALI_SMS_SIGN_NAME = '',
-  ALI_SMS_TEMPLATE_CODE = '',
 } = process.env
 
 const appBaseUrl = APP_BASE_URL || `http://${APP_DOMAIN}`
@@ -57,11 +46,13 @@ const mongoQuery = new URLSearchParams({
   authSource: MONGODB_AUTH_SOURCE,
 })
 
-if (MONGODB_DIRECT_CONNECTION) {
-  mongoQuery.set('directConnection', MONGODB_DIRECT_CONNECTION)
+if (MONGODB_DIRECT_CONNECTION === 'true') {
+  mongoQuery.set('directConnection', 'true')
+} else if (MONGODB_DIRECT_CONNECTION) {
+  // If explicitly something else, you might want to set it, or omit 'directConnection' entirely if it's 'false'.
 }
 
-const mongoUri = `mongodb://${mongoCredential}${MONGODB_HOST}:${MONGODB_PORT}/?${mongoQuery.toString()}`
+const mongoUri = process.env.MONGODB_URI || `mongodb://${mongoCredential}${MONGODB_HOST}:${MONGODB_PORT}/?${mongoQuery.toString()}`
 
 const parsedAssetsConfig = (() => {
   const raw = FACTORY_ASSETS_CONFIG || ASSETS_CONFIG
@@ -121,45 +112,18 @@ module.exports = {
       uri: mongoUri,
       dbName: FACTORY_CHANNEL_DB_NAME,
     },
-    moreApi: {
-      platApiUri: '',
-      xhsCreatorUri: '',
-    },
-    shortLink: {
-      baseUrl: '',
-    },
-    bilibili: {
-      id: '',
-      secret: '',
-      authBackHost: '',
-    },
-    douyin: {
-      id: '',
-      secret: '',
-      authBackHost: '',
-    },
-    kwai: {
-      id: '',
-      secret: '',
-      authBackHost: '',
-    },
-    google: {
-      id: GOOGLE_CLIENT_ID,
-      secret: GOOGLE_CLIENT_SECRET,
-      authBackHost: '',
-    },
-    googleBusiness: {
-      clientId: '',
-      clientSecret: '',
-      redirectUri: '',
-    },
-    pinterest: {
-      id: PINTEREST_CLIENT_ID,
-      secret: PINTEREST_CLIENT_SECRET,
-      authBackHost: '',
-      baseUrl: 'https://api.pinterest.com',
-      test_authorization: PINTEREST_TEST_AUTHORIZATION,
-    },
+    // -- Stubs required by @yikart/channel-db schema but unused by factory --
+    moreApi: { platApiUri: '', xhsCreatorUri: '' },
+    shortLink: { baseUrl: '' },
+    bilibili: { id: '', secret: '', authBackHost: '' },
+    douyin: { id: '', secret: '', authBackHost: '' },
+    kwai: { id: '', secret: '', authBackHost: '' },
+    google: { id: '', secret: '', authBackHost: '' },
+    googleBusiness: { clientId: '', clientSecret: '', redirectUri: '' },
+    pinterest: { id: '', secret: '', authBackHost: '', baseUrl: '', test_authorization: '' },
+    wxPlat: { id: '', secret: '', token: '', encodingAESKey: '', authBackHost: '' },
+    myWxPlat: { id: '', secret: '', hostUrl: '' },
+    // -- Active platforms --
     tiktok: {
       clientId: TIKTOK_CLIENT_ID,
       clientSecret: TIKTOK_CLIENT_SECRET,
@@ -217,25 +181,7 @@ module.exports = {
           'instagram_business_manage_comments',
         ],
       },
-      linkedin: {
-        clientId: '',
-        clientSecret: '',
-        configId: '',
-        redirectUri: '',
-        scopes: ['openid', 'profile', 'email', 'w_member_social'],
-      },
-    },
-    wxPlat: {
-      id: '',
-      secret: '',
-      token: 'factory',
-      encodingAESKey: '',
-      authBackHost: '',
-    },
-    myWxPlat: {
-      id: '',
-      secret: '',
-      hostUrl: '',
+      linkedin: { clientId: '', clientSecret: '', configId: '', redirectUri: '', scopes: [] },
     },
     youtube: {
       id: YOUTUBE_CLIENT_ID,
@@ -244,30 +190,10 @@ module.exports = {
     },
   },
   assets: parsedAssetsConfig,
-  mail: {
-    transport: {
-      host: '',
-      port: 587,
-      secure: false,
-      auth: {
-        user: MAIL_USER,
-        pass: MAIL_PASS,
-      },
-    },
-    defaults: {
-      from: '',
-    },
-  },
-  aliSms: {
-    accessKeyId: ALI_SMS_ACCESS_KEY_ID,
-    accessKeySecret: ALI_SMS_ACCESS_KEY_SECRET,
-    signName: ALI_SMS_SIGN_NAME,
-    templateCode: ALI_SMS_TEMPLATE_CODE,
-  },
-  aiClient: {
-    baseUrl: AI_URL,
-    token: INTERNAL_TOKEN,
-  },
+  // -- Stubs required by config schema but unused by factory --
+  mail: { transport: { host: '', port: 587, secure: false, auth: { user: '', pass: '' } }, defaults: { from: '' } },
+  aliSms: { accessKeyId: '', accessKeySecret: '', signName: '', templateCode: '' },
+  aiClient: { baseUrl: '', token: INTERNAL_TOKEN },
   credits: {},
   factory: {
     admin: {

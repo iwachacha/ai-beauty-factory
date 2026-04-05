@@ -6,13 +6,13 @@ import mongoose from 'mongoose'
 export class FactoryFlow extends WithTimestampSchema {
   id: string
 
-  @Prop({ required: true, index: true })
+  @Prop({ type: String, required: true, index: true })
   userId: string
 
-  @Prop({ required: true })
+  @Prop({ type: String, required: true })
   name: string
 
-  @Prop({ required: true, index: true })
+  @Prop({ type: String, required: true, index: true })
   contentAssetId: string
 
   @Prop({ type: [String], default: [] })
@@ -21,7 +21,7 @@ export class FactoryFlow extends WithTimestampSchema {
   @Prop({ type: Date, required: false })
   scheduleAt?: Date
 
-  @Prop({ required: true, default: 'draft' })
+  @Prop({ type: String, required: true, default: 'draft' })
   status: string
 
   @Prop({ type: Date, required: false })
