@@ -32,6 +32,10 @@ function Get-TrackedStatusSnapshot {
     throw 'Unable to read tracked git status.'
   }
 
+  if ($null -eq $status) {
+    return @()
+  }
+
   return @($status)
 }
 
