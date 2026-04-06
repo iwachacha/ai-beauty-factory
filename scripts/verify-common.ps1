@@ -42,8 +42,10 @@ function Get-TrackedStatusSnapshot {
 function Assert-TrackedStatusUnchanged {
   param(
     [Parameter(Mandatory = $true)]
+    [AllowEmptyCollection()]
     [string[]]$Before,
     [Parameter(Mandatory = $true)]
+    [AllowEmptyCollection()]
     [string[]]$After,
     [Parameter(Mandatory = $true)]
     [string]$Context
