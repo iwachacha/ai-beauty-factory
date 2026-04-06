@@ -119,6 +119,8 @@ The repository now treats verification as part of the deliverable.
 
 - `AGENTS.md`
   - top-level operating rules for autonomous delivery in this repo
+- `docs/spec-alignment-checklist.md`
+  - mandatory non-technical question checklist for non-trivial work
 - `scripts/verify-fast.ps1`
   - required for every change and before each push
 - `scripts/verify-full.ps1`
@@ -134,10 +136,11 @@ The repository now treats verification as part of the deliverable.
 
 ### Daily flow
 
-1. Branch from the latest `main`.
-2. Make the change.
-3. Run `powershell -ExecutionPolicy Bypass -File .\scripts\verify-fast.ps1`.
-4. Run `powershell -ExecutionPolicy Bypass -File .\scripts\verify-full.ps1` when you need a local runtime rehearsal and infrastructure is available.
-5. Push the feature branch.
-6. Wait for GitHub Actions to finish the required tier for that diff: fast, smoke, or browser.
-7. Open or update the PR with the verification evidence.
+1. For non-trivial work, align on the spec with the user using `docs/spec-alignment-checklist.md`.
+2. Branch from the latest `main`.
+3. Make the change.
+4. Run `powershell -ExecutionPolicy Bypass -File .\scripts\verify-fast.ps1`.
+5. Run `powershell -ExecutionPolicy Bypass -File .\scripts\verify-full.ps1` when you need a local runtime rehearsal and infrastructure is available.
+6. Push the feature branch.
+7. Wait for GitHub Actions to finish the required tier for that diff: fast, smoke, or browser.
+8. Open or update the PR with the verification evidence.

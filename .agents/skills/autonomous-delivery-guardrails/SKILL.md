@@ -1,6 +1,6 @@
 ---
 name: autonomous-delivery-guardrails
-description: Use for AI Beauty Studio repository work that must follow strict repo-specific guardrails: ask the user only about product direction, discover technical truth locally, choose the required verification tier, stop on missing evidence, and require approval for external publish/delete/money actions.
+description: Use for AI Beauty Studio repository work that must follow strict repo-specific guardrails: ask the user thorough non-technical specification questions, discover technical truth locally, choose the required verification tier, stop on missing evidence, and require approval for external publish/delete/money actions.
 ---
 
 # Autonomous Delivery Guardrails
@@ -9,10 +9,21 @@ Use this skill for product, backend, frontend, script, CI, or workflow changes i
 
 ## Core Behavior
 
-- Ask the user only about specification, direction, priorities, UX, operating policy, and approval for dangerous actions.
+- Ask the user thorough non-technical specification and direction questions before any non-trivial implementation.
+- Ask the user only about specification, direction, priorities, UX, operating policy, examples, constraints, and approval for dangerous actions.
 - Do not ask the user technical implementation questions when the answer can be discovered locally.
+- Do not ask the user to choose tools, libraries, frameworks, CI setup, infrastructure, or test technology.
 - Read the relevant code, tests, scripts, and docs before deciding how to implement a change.
 - Do not report completion without command evidence.
+
+## Spec Alignment
+
+- Use `docs/spec-alignment-checklist.md` before starting any non-trivial work.
+- Keep asking specification and direction questions until expected behavior, success criteria, and non-goals are clear.
+- Ask in plain language the user can answer quickly.
+- Group related questions so the user can reply efficiently.
+- After the user answers, restate the confirmed direction before writing code.
+- If the user has already delegated technical choices to the AI, treat technical ambiguity as a local research task.
 
 ## Required Verification
 

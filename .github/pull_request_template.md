@@ -3,6 +3,13 @@
 - What changed?
 - Why was it needed?
 
+## Product Alignment
+
+- What user-facing outcome was requested?
+- What behavior must change?
+- What must stay unchanged?
+- What technical choices were intentionally left to AI judgment?
+
 ## Verification
 
 - [ ] `powershell -ExecutionPolicy Bypass -File .\scripts\verify-fast.ps1`

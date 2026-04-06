@@ -7,29 +7,48 @@ Build working software with evidence, not optimism. This repository is quality-f
 ## User Interaction Rules
 
 - Do not ask the user technical implementation questions.
-- Ask the user only about specification, priorities, UX direction, operating policy, and approval for dangerous actions.
+- For any non-trivial task, ask the user thorough specification and direction questions before implementation.
+- Ask the user only about specification, priorities, UX direction, operating policy, examples, constraints, and approval for dangerous actions.
 - Translate technical tradeoffs into plain-language impact before asking for direction.
+- Never ask the user to choose tools, libraries, frameworks, CI setup, infrastructure, or test technology.
+- If the user has already delegated technical choices to the AI, treat every technical ambiguity as a local research task, not a user question.
+
+## Spec Alignment Gate
+
+Before starting any non-trivial implementation, complete a spec alignment pass using [docs/spec-alignment-checklist.md](C:/monetization/docs/spec-alignment-checklist.md).
+
+- Ask enough non-technical questions to remove product ambiguity.
+- Keep asking until the expected behavior, success criteria, and non-goals are explicit.
+- Use plain language the user can answer quickly.
+- Group related questions so the user can respond efficiently.
+- After the answers arrive, restate the confirmed direction before coding.
+- If the task is trivial and unambiguous, you may skip the full checklist, but still avoid technical questions.
 
 ## Required Working Flow
 
-1. Discover truth first.
+1. Align on product direction first.
+   For non-trivial work, ask the user the necessary specification and direction questions before coding.
+2. Discover truth locally.
    Read the relevant code, scripts, tests, and docs before deciding how to implement a change.
-2. Confirm only product decisions.
+3. Confirm only product decisions.
    If an ambiguity can be resolved from the repo, resolve it locally instead of asking the user.
-3. Implement the smallest safe change.
+4. Restate the confirmed direction.
+   Summarize the agreed behavior, constraints, and success criteria in plain language before implementation.
+5. Implement the smallest safe change.
    Keep edits scoped, intentional, and easy to verify.
-4. Run the correct verification tier.
+6. Run the correct verification tier.
    Use `scripts/verify-fast.ps1` for every change and before each push.
    Use `scripts/verify-full.ps1` when rehearsing runtime flows locally and a Docker-compatible runtime is available.
    GitHub Actions decides whether the diff also requires API smoke or browser E2E. Major user-facing studio flow changes must pass browser E2E before merge.
-5. Report evidence.
+7. Report evidence.
    Every completion report must list the commands run, what passed, and anything still blocked.
 
 ## Non-Negotiables
 
-- Never say something “should work” when it has not been checked.
+- Never say something "should work" when it has not been checked.
 - Never hide a failing test, broken build, missing dependency, or skipped verification.
 - Never claim completion without evidence.
+- Never start major user-facing work on an underspecified request without first clarifying the product direction.
 - Never leave TODO/FIXME/WIP markers, conflict markers, or `@ts-ignore` / `@ts-expect-error` in guarded repo paths.
 - Never let verification commands silently rewrite tracked files.
 
@@ -46,7 +65,7 @@ If approval is missing, stop and ask.
 
 ## Branching And Delivery
 
-- Do not develop directly on `main` except for an explicit snapshot/rescue commit requested by the user.
+- Do not develop directly on `main` except for an explicit snapshot or rescue commit requested by the user.
 - Normal work starts from the latest `main` on a feature branch.
 - Push feature branches and use PR-ready changes with passing local checks plus the required GitHub Actions tier.
 
