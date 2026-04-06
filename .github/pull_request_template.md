@@ -6,7 +6,9 @@
 ## Verification
 
 - [ ] `powershell -ExecutionPolicy Bypass -File .\scripts\verify-fast.ps1`
-- [ ] `powershell -ExecutionPolicy Bypass -File .\scripts\verify-full.ps1`
+- [ ] `powershell -ExecutionPolicy Bypass -File .\scripts\verify-full.ps1` when a local runtime rehearsal was needed
+- [ ] GitHub Actions API smoke passed or was not required for this diff
+- [ ] GitHub Actions browser E2E passed or was not required for this diff
 
 List the commands you actually ran and the result for each one.
 

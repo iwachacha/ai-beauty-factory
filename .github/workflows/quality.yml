@@ -8,11 +8,41 @@ permissions:
   contents: read
 
 jobs:
-  verify-fast:
-    runs-on: windows-latest
+  detect-change-scope:
+    runs-on: ubuntu-latest
+    outputs:
+      tier: ${{ steps.scope.outputs.tier }}
+      smoke_required: ${{ steps.scope.outputs.smoke_required }}
+      browser_e2e_required: ${{ steps.scope.outputs.browser_e2e_required }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Fetch base branch
+        if: github.event_name == 'pull_request'
+        run: git fetch origin "${{ github.base_ref }}" --depth=1
+
+      - name: Detect change scope
+        id: scope
+        run: node ./scripts/ci-detect-change-scope.mjs
+
+  verify-fast:
+    needs: detect-change-scope
+    runs-on: ubuntu-latest
+    env:
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -36,3 +66,81 @@ jobs:
       - name: Run verify-fast
         shell: pwsh
         run: .\scripts\verify-fast.ps1
+
+  verify-studio-flows:
+    needs:
+      - detect-change-scope
+      - verify-fast
+    if: needs.detect-change-scope.outputs.smoke_required == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+    services:
+      mongo:
+        image: mongo:8
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd="mongosh --eval \"db.adminCommand('ping')\""
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+      valkey:
+        image: valkey/valkey:8-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd="valkey-cli ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Enable corepack
+        shell: pwsh
+        run: corepack enable
+
+      - name: Install backend dependencies
+        shell: pwsh
+        working-directory: backend
+        run: pnpm install --frozen-lockfile
+
+      - name: Install web dependencies
+        shell: pwsh
+        working-directory: web
+        run: npm ci
+
+      - name: Build backend
+        shell: pwsh
+        working-directory: backend
+        run: pnpm run build:factory
+
+      - name: Build web
+        shell: pwsh
+        working-directory: web
+        run: npm run build
+
+      - name: Install Playwright Chromium
+        if: needs.detect-change-scope.outputs.browser_e2e_required == 'true'
+        working-directory: web
+        run: npx playwright install --with-deps chromium
+
+      - name: Run studio verification
+        env:
+          STUDIO_VERIFICATION_MODE: ${{ needs.detect-change-scope.outputs.tier }}
+        run: node ./scripts/run-studio-verification.mjs --mode=${STUDIO_VERIFICATION_MODE}
+
+      - name: Upload Playwright report
+        if: failure() && needs.detect-change-scope.outputs.browser_e2e_required == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: web/playwright-report

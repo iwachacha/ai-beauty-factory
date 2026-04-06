@@ -10,6 +10,18 @@ function Get-RepoRoot {
   return $root.Trim()
 }
 
+function Get-PowerShellCommand {
+  $commands = @('pwsh', 'powershell', 'powershell.exe')
+  foreach ($candidate in $commands) {
+    $command = Get-Command $candidate -ErrorAction SilentlyContinue
+    if ($command) {
+      return $command.Source
+    }
+  }
+
+  throw 'Unable to find a PowerShell executable.'
+}
+
 function Invoke-NativeStep {
   param(
     [Parameter(Mandatory = $true)]
@@ -175,7 +187,7 @@ function Invoke-WebScript {
 function Assert-DockerPrerequisites {
   $docker = Get-Command docker -ErrorAction SilentlyContinue
   if (-not $docker) {
-    throw 'verify-full requires Docker Desktop. Install Docker and start the daemon first.'
+    throw 'verify-full requires a local Docker-compatible runtime and running infrastructure services. Install Docker or an equivalent runtime first.'
   }
 
   $services = & docker compose ps --services --status running 2>&1

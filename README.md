@@ -33,7 +33,7 @@ Requirements:
 
 - Node.js 24+
 - `corepack`
-- Docker Desktop
+- Docker-compatible local runtime for optional local smoke rehearsal
 
 1. Start MongoDB and Valkey.
 
@@ -111,6 +111,8 @@ Run it after backend/web are built:
 powershell -ExecutionPolicy Bypass -File .\scripts\smoke.ps1
 ```
 
+`verify-full` uses the same smoke flow. A Docker-compatible local runtime is only needed when you want to rehearse the heavy runtime checks locally.
+
 ## Guardrails
 
 The repository now treats verification as part of the deliverable.
@@ -118,20 +120,24 @@ The repository now treats verification as part of the deliverable.
 - `AGENTS.md`
   - top-level operating rules for autonomous delivery in this repo
 - `scripts/verify-fast.ps1`
-  - required for normal code/config/doc/script changes
+  - required for every change and before each push
 - `scripts/verify-full.ps1`
-  - required before push and for user-facing flow, persistence, CI, hook, publish, review, or generation changes
+  - optional local rehearsal for runtime flows when local infrastructure is available
+- `.github/workflows/quality.yml`
+  - always runs `verify-fast`
+  - escalates to API smoke for runtime/CI changes
+  - escalates to browser E2E for major user-facing flow changes
 - `.githooks/pre-commit`
   - runs `verify-fast`
 - `.githooks/pre-push`
-  - runs `verify-full`
-- `.github/workflows/quality.yml`
-  - runs `verify-fast` on GitHub Actions
+  - runs `verify-fast` and relies on GitHub Actions for heavy tiers
 
 ### Daily flow
 
 1. Branch from the latest `main`.
 2. Make the change.
 3. Run `powershell -ExecutionPolicy Bypass -File .\scripts\verify-fast.ps1`.
-4. Before push, run `powershell -ExecutionPolicy Bypass -File .\scripts\verify-full.ps1`.
-5. Push the feature branch and open a PR with the verification evidence.
+4. Run `powershell -ExecutionPolicy Bypass -File .\scripts\verify-full.ps1` when you need a local runtime rehearsal and infrastructure is available.
+5. Push the feature branch.
+6. Wait for GitHub Actions to finish the required tier for that diff: fast, smoke, or browser.
+7. Open or update the PR with the verification evidence.

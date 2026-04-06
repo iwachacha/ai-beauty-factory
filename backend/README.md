@@ -23,6 +23,7 @@ corepack pnpm run build:factory
 
 `lint:studio` is the strict green-path lint used by the repository guardrails.
 Use `corepack pnpm run lint:fix:factory` only when you explicitly want auto-fixes.
+Full smoke and browser verification live at the repository root so backend and web are exercised together.
 
 ## Run locally
 

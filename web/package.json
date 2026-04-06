@@ -7,7 +7,8 @@
     "typecheck": "tsc --noEmit",
     "build": "next build",
     "start": "next start -p 6070",
-    "test": "vitest run",
+    "test": "vitest run --config vitest.config.ts",
+    "test:e2e:studio": "playwright test -c playwright.studio.config.ts",
     "verify": "npm run typecheck && npm run test && npm run build"
   },
   "dependencies": {
@@ -18,6 +19,7 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.55.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

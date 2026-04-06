@@ -5,7 +5,9 @@ repo_root="$(git rev-parse --show-toplevel)"
 cd "$repo_root"
 
 if command -v pwsh >/dev/null 2>&1; then
-  pwsh -NoProfile -File "./scripts/verify-full.ps1"
+  pwsh -NoProfile -File "./scripts/verify-fast.ps1"
 else
-  powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\\scripts\\verify-full.ps1"
+  powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\\scripts\\verify-fast.ps1"
 fi
+
+printf '%s\n' "GitHub Actions enforces API smoke and browser E2E when the diff requires them."

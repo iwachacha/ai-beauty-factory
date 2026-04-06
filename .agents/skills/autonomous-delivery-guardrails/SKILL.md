@@ -16,9 +16,10 @@ Use this skill for product, backend, frontend, script, CI, or workflow changes i
 
 ## Required Verification
 
-- Run `scripts/verify-fast.ps1` for ordinary code, config, docs, test, automation, or refactor work.
-- Run `scripts/verify-full.ps1` before any push, and for changes that affect user-facing flows, persistence, generation, review, publishing, auth, hooks, CI, or environment scripts.
-- If verification cannot run because of missing prerequisites, stop and report the missing prerequisite as a blocker. Do not silently skip it.
+- Run `scripts/verify-fast.ps1` for every change and before each push.
+- Run `scripts/verify-full.ps1` when you need a local rehearsal of runtime flows and a Docker-compatible runtime is available.
+- Expect GitHub Actions to escalate to API smoke for runtime or CI changes and to browser E2E for major user-facing studio flow changes.
+- If a required verification tier cannot run because of missing prerequisites, stop and report the missing prerequisite as a blocker. Do not silently skip it.
 
 ## Stop Conditions
 

@@ -30,7 +30,9 @@ http://localhost:3012/api
 npm run typecheck
 npm run test
 npm run build
+npm run test:e2e:studio
 npm run verify
 ```
 
 `npm run verify` runs the full local web verification sequence used by the repository guardrails.
+`npm run test:e2e:studio` runs the browser-only studio flow against an already running stack.
