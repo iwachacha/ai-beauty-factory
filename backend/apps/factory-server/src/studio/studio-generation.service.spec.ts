@@ -9,6 +9,8 @@ vi.mock('@yikart/mongodb', () => ({
 }))
 
 describe('studioGenerationService', () => {
+  type StudioGenerationDependencies = ConstructorParameters<typeof StudioGenerationService>
+
   const characterModel = {
     findOne: vi.fn(),
   }
@@ -36,12 +38,12 @@ describe('studioGenerationService', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     service = new StudioGenerationService(
-      characterModel as any,
-      templateModel as any,
-      runModel as any,
-      assetModel as any,
+      characterModel as unknown as StudioGenerationDependencies[0],
+      templateModel as unknown as StudioGenerationDependencies[1],
+      runModel as unknown as StudioGenerationDependencies[2],
+      assetModel as unknown as StudioGenerationDependencies[3],
       new PromptComposerService(),
-      provider as any,
+      provider as unknown as StudioGenerationDependencies[5],
     )
   })
 

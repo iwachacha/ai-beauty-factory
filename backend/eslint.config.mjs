@@ -100,6 +100,22 @@ export default antfu(
   },
   {
     files: [
+      'apps/factory-server/src/studio/**/*.service.ts',
+    ],
+    rules: {
+      'no-restricted-imports': 'off',
+    },
+  },
+  {
+    files: [
+      'apps/factory-server/src/**/*.spec.ts',
+    ],
+    rules: {
+      'ts/no-explicit-any': 'off',
+    },
+  },
+  {
+    files: [
       '**/*.ts',
       '**/*.tsx',
       '**/*.cts',

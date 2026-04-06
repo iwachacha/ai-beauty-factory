@@ -12,6 +12,8 @@ vi.mock('./studio-channel-account.service', () => ({
 }))
 
 describe('studioPublishingService', () => {
+  type StudioPublishingDependencies = ConstructorParameters<typeof StudioPublishingService>
+
   const generatedAssetModel = {
     findOne: vi.fn(),
   }
@@ -49,14 +51,14 @@ describe('studioPublishingService', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     service = new StudioPublishingService(
-      generatedAssetModel as any,
-      contentDraftModel as any,
-      publishPackageModel as any,
-      publishedPostModel as any,
-      generationRunModel as any,
-      characterModel as any,
-      templateModel as any,
-      channelAccountService as any,
+      generatedAssetModel as unknown as StudioPublishingDependencies[0],
+      contentDraftModel as unknown as StudioPublishingDependencies[1],
+      publishPackageModel as unknown as StudioPublishingDependencies[2],
+      publishedPostModel as unknown as StudioPublishingDependencies[3],
+      generationRunModel as unknown as StudioPublishingDependencies[4],
+      characterModel as unknown as StudioPublishingDependencies[5],
+      templateModel as unknown as StudioPublishingDependencies[6],
+      channelAccountService as unknown as StudioPublishingDependencies[7],
     )
   })
 

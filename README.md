@@ -55,16 +55,23 @@ cd ../web
 npm install
 ```
 
-4. Build backend and web.
+4. Install the local git hooks.
 
 ```powershell
-cd ../backend
+cd ..
+powershell -ExecutionPolicy Bypass -File .\scripts\install-git-hooks.ps1
+```
+
+5. Build backend and web.
+
+```powershell
+cd .\backend
 corepack pnpm run build:factory
-cd ../web
+cd ..\web
 npm run build
 ```
 
-5. Start backend and web.
+6. Start backend and web.
 
 ```powershell
 cd ..
@@ -75,7 +82,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\start-backend.ps1
 powershell -ExecutionPolicy Bypass -File .\scripts\start-web.ps1
 ```
 
-6. Open the studio UI.
+7. Open the studio UI.
 
 - `http://localhost:6070/review`
 - login values come from `FACTORY_ADMIN_EMAIL` and `FACTORY_ADMIN_PASSWORD`
@@ -103,3 +110,28 @@ Run it after backend/web are built:
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\smoke.ps1
 ```
+
+## Guardrails
+
+The repository now treats verification as part of the deliverable.
+
+- `AGENTS.md`
+  - top-level operating rules for autonomous delivery in this repo
+- `scripts/verify-fast.ps1`
+  - required for normal code/config/doc/script changes
+- `scripts/verify-full.ps1`
+  - required before push and for user-facing flow, persistence, CI, hook, publish, review, or generation changes
+- `.githooks/pre-commit`
+  - runs `verify-fast`
+- `.githooks/pre-push`
+  - runs `verify-full`
+- `.github/workflows/quality.yml`
+  - runs `verify-fast` on GitHub Actions
+
+### Daily flow
+
+1. Branch from the latest `main`.
+2. Make the change.
+3. Run `powershell -ExecutionPolicy Bypass -File .\scripts\verify-fast.ps1`.
+4. Before push, run `powershell -ExecutionPolicy Bypass -File .\scripts\verify-full.ps1`.
+5. Push the feature branch and open a PR with the verification evidence.

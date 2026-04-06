@@ -1,21 +1,31 @@
-# SNS Factory Backend
+# Factory Backend
 
-個人用 SNS 運用工場の backend workspace です。
+Backend workspace for the AI Beauty Studio project.
 
-主要 app:
+## Main app
 
 - `apps/factory-server`
 
-補助 source:
-
-- `apps/aitoearn-server`
-  - `factory-server` が再利用している既存 platform adapter / publishing provider を保持しています。
-
-基本コマンド:
+## Install
 
 ```powershell
 corepack pnpm install
+```
+
+## Quality commands
+
+```powershell
+corepack pnpm run lint:studio
 corepack pnpm run lint:factory
+corepack pnpm run test:factory
 corepack pnpm run build:factory
+```
+
+`lint:studio` is the strict green-path lint used by the repository guardrails.
+Use `corepack pnpm run lint:fix:factory` only when you explicitly want auto-fixes.
+
+## Run locally
+
+```powershell
 corepack pnpm run serve:factory
 ```

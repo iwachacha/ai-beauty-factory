@@ -23,3 +23,14 @@ Default:
 ```text
 http://localhost:3012/api
 ```
+
+## Quality commands
+
+```powershell
+npm run typecheck
+npm run test
+npm run build
+npm run verify
+```
+
+`npm run verify` runs the full local web verification sequence used by the repository guardrails.

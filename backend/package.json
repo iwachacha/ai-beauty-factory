@@ -4,7 +4,10 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "lint:factory": "nx lint factory-server --skip-nx-cache",
+    "lint:factory": "nx lint factory-server --skip-nx-cache --fix=false",
+    "lint:fix:factory": "nx lint factory-server --skip-nx-cache --fix",
+    "lint:studio": "pnpm exec eslint --max-warnings=0 apps/factory-server/src/studio/**/*.ts apps/factory-server/vitest.config.ts apps/factory-server/tsconfig.spec.json",
+    "test:factory": "nx run factory-server:test --skip-nx-cache",
     "build:factory": "nx build factory-server --skip-nx-cache",
     "serve:factory": "nx serve factory-server"
   },
