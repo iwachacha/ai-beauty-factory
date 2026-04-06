@@ -6,7 +6,7 @@ Set-StrictMode -Version Latest
 $repoRoot = Get-RepoRoot
 Push-Location $repoRoot
 try {
-  $before = Get-TrackedStatusSnapshot
+  $before = @(Get-TrackedStatusSnapshot)
 
   Invoke-NativeStep -Name 'Guardrail text checks' -Action { Assert-RepoTextGuards }
   Invoke-BackendScript -Name 'Backend studio lint' -Arguments @('pnpm', 'run', 'lint:studio')
@@ -16,7 +16,7 @@ try {
   Invoke-WebScript -Name 'Web tests' -Arguments @('run', 'test')
   Invoke-WebScript -Name 'Web build' -Arguments @('run', 'build')
 
-  $after = Get-TrackedStatusSnapshot
+  $after = @(Get-TrackedStatusSnapshot)
   Assert-TrackedStatusUnchanged -Before $before -After $after -Context 'verify-fast'
   Write-Host 'verify-fast passed.'
 }
