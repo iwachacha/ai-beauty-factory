@@ -24,6 +24,26 @@ import { YoutubePubService } from '../../../aitoearn-server/src/core/channel/pub
 import { MediaGroupService } from '../../../aitoearn-server/src/core/content/media-group.service'
 import { MediaService } from '../../../aitoearn-server/src/core/content/media.service'
 import { PublishRecordService as LegacyPublishRecordService } from '../../../aitoearn-server/src/core/publish-record/publish-record.service'
+import { PromptComposerService } from '../studio/prompt-composer.service'
+import { ComfyUiGenerationProvider } from '../studio/providers/comfyui.provider'
+import { StudioChannelAccountEntity, StudioChannelAccountSchema } from '../studio/storage/studio-channel-account.schema'
+import { StudioCharacterProfileEntity, StudioCharacterProfileSchema } from '../studio/storage/studio-character-profile.schema'
+import { StudioContentDraftEntity, StudioContentDraftSchema } from '../studio/storage/studio-content-draft.schema'
+import { StudioGeneratedAssetEntity, StudioGeneratedAssetSchema } from '../studio/storage/studio-generated-asset.schema'
+import { StudioGenerationRunEntity, StudioGenerationRunSchema } from '../studio/storage/studio-generation-run.schema'
+import { StudioPromptTemplateEntity, StudioPromptTemplateSchema } from '../studio/storage/studio-prompt-template.schema'
+import { StudioPublishPackageEntity, StudioPublishPackageSchema } from '../studio/storage/studio-publish-package.schema'
+import { StudioPublishedPostEntity, StudioPublishedPostSchema } from '../studio/storage/studio-published-post.schema'
+import { StudioChannelAccountController } from '../studio/studio-channel-account.controller'
+import { StudioChannelAccountService } from '../studio/studio-channel-account.service'
+import { StudioCharactersController } from '../studio/studio-characters.controller'
+import { StudioCharactersService } from '../studio/studio-characters.service'
+import { StudioGenerationController } from '../studio/studio-generation.controller'
+import { StudioGenerationService } from '../studio/studio-generation.service'
+import { StudioPublishingController } from '../studio/studio-publishing.controller'
+import { StudioPublishingService } from '../studio/studio-publishing.service'
+import { StudioTemplatesController } from '../studio/studio-templates.controller'
+import { StudioTemplatesService } from '../studio/studio-templates.service'
 import { FactoryAccountGroupService } from './factory-account-group.service'
 import { FactoryAccountService } from './factory-account.service'
 import { FactoryAccountsController } from './factory-accounts.controller'
@@ -33,6 +53,7 @@ import { FactoryAuthController } from './factory-auth.controller'
 import { FactoryAuthService } from './factory-auth.service'
 import { FactoryBootstrapService } from './factory-bootstrap.service'
 import { FactoryContentController } from './factory-content.controller'
+
 import { FactoryContentService } from './factory-content.service'
 import { FactoryFlowController } from './factory-flow.controller'
 import { FactoryMaterialGroupService } from './factory-material-group.service'
@@ -54,23 +75,20 @@ import { FactorySnapshotRepository } from './storage/factory-snapshot.repository
 import { FactoryFlow, FactoryFlowSchema } from './storage/flow.schema'
 import { FactoryPostSnapshot, FactoryPostSnapshotSchema } from './storage/post-snapshot.schema'
 
-import { FactoryBeautyCharactersController } from './factory-beauty-characters.controller'
-import { FactoryBeautyCharactersService } from './factory-beauty-characters.service'
-import { FactoryBeautyTemplatesController } from './factory-beauty-templates.controller'
-import { FactoryBeautyTemplatesService } from './factory-beauty-templates.service'
-import { FactoryBeautyCalendarController } from './factory-beauty-calendar.controller'
-import { FactoryBeautyCalendarService } from './factory-beauty-calendar.service'
-import { FactoryBeautyMonetizationController } from './factory-beauty-monetization.controller'
-import { FactoryBeautyMonetizationService } from './factory-beauty-monetization.service'
-import { FactoryBeautyComfyuiService } from './factory-beauty-comfyui.service'
-
-
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: FactoryFlow.name, schema: FactoryFlowSchema },
       { name: FactoryAccountSnapshot.name, schema: FactoryAccountSnapshotSchema },
       { name: FactoryPostSnapshot.name, schema: FactoryPostSnapshotSchema },
+      { name: StudioChannelAccountEntity.name, schema: StudioChannelAccountSchema },
+      { name: StudioCharacterProfileEntity.name, schema: StudioCharacterProfileSchema },
+      { name: StudioPromptTemplateEntity.name, schema: StudioPromptTemplateSchema },
+      { name: StudioGenerationRunEntity.name, schema: StudioGenerationRunSchema },
+      { name: StudioGeneratedAssetEntity.name, schema: StudioGeneratedAssetSchema },
+      { name: StudioContentDraftEntity.name, schema: StudioContentDraftSchema },
+      { name: StudioPublishPackageEntity.name, schema: StudioPublishPackageSchema },
+      { name: StudioPublishedPostEntity.name, schema: StudioPublishedPostSchema },
     ]),
   ],
   controllers: [
@@ -80,10 +98,11 @@ import { FactoryBeautyComfyuiService } from './factory-beauty-comfyui.service'
     FactoryFlowController,
     FactoryMcpController,
     FactorySettingsController,
-    FactoryBeautyCharactersController,
-    FactoryBeautyTemplatesController,
-    FactoryBeautyCalendarController,
-    FactoryBeautyMonetizationController,
+    StudioChannelAccountController,
+    StudioCharactersController,
+    StudioTemplatesController,
+    StudioGenerationController,
+    StudioPublishingController,
   ],
   providers: [
     MediaService,
@@ -126,11 +145,13 @@ import { FactoryBeautyComfyuiService } from './factory-beauty-comfyui.service'
     FactoryEnqueueScheduler,
     FactoryImmediatePublishConsumer,
     FactoryFinalizePublishConsumer,
-    FactoryBeautyCharactersService,
-    FactoryBeautyTemplatesService,
-    FactoryBeautyCalendarService,
-    FactoryBeautyMonetizationService,
-    FactoryBeautyComfyuiService,
+    StudioChannelAccountService,
+    StudioCharactersService,
+    StudioTemplatesService,
+    StudioGenerationService,
+    StudioPublishingService,
+    PromptComposerService,
+    ComfyUiGenerationProvider,
     {
       provide: LegacyPublishRecordService,
       useExisting: FactoryPublishRecordService,
@@ -161,6 +182,10 @@ import { FactoryBeautyComfyuiService } from './factory-beauty-comfyui.service'
         TiktokPubService,
         YoutubePubService,
       ],
+    },
+    {
+      provide: 'STUDIO_GENERATION_PROVIDER',
+      useExisting: ComfyUiGenerationProvider,
     },
   ],
 })

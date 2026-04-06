@@ -4,8 +4,8 @@ import './globals.css'
 import { FactoryProvider } from '../components/factory-provider'
 
 export const metadata: Metadata = {
-  title: 'AI Beauty Factory',
-  description: 'AI Beauty Monetization Management Dashboard',
+  title: 'AI Beauty Studio',
+  description: 'Single-account studio for generation, review, publishing, and insights.',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {

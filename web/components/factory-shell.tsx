@@ -8,15 +8,13 @@ import { factoryFetch } from '../lib/factory-api'
 import { useFactory } from './factory-provider'
 
 const navItems = [
-  { href: '/characters', label: 'キャラクター', description: 'AIモデル管理' },
-  { href: '/templates', label: 'テンプレート', description: 'プロンプトとシーン' },
-  { href: '/monetization', label: '配信・収益', description: 'コンテンツ投稿状況' },
-  { href: '/calendar', label: 'カレンダー', description: '投稿スケジュール' },
-  { href: '/accounts', label: 'アカウント連携', description: 'SNSアカウントの登録' },
-  { href: '/library', label: 'ライブラリー', description: '投稿素材の管理' },
-  { href: '/flows', label: '配信フロー', description: '自動投稿のルール作成' },
-  { href: '/queue', label: '実行状況', description: '配信タスクの監視' },
-  { href: '/settings', label: 'システム設定', description: '環境とセキュリティ' },
+  { href: '/characters', label: 'Characters', description: 'Persona and identity' },
+  { href: '/templates', label: 'Templates', description: 'Prompt building blocks' },
+  { href: '/generate', label: 'Generate', description: 'ComfyUI generation' },
+  { href: '/review', label: 'Review', description: 'Approve or reject assets' },
+  { href: '/publish', label: 'Publish', description: 'Manual posting package' },
+  { href: '/insights', label: 'Insights', description: 'Track post results' },
+  { href: '/settings', label: 'Settings', description: 'X account and API access' },
 ]
 
 export function FactoryShell({
@@ -74,11 +72,11 @@ export function FactoryShell({
               AI Beauty Studio
             </div>
             <h1 style={{ margin: '8px 0 0', fontFamily: 'var(--font-display), sans-serif', fontSize: 28 }}>
-              Monetization
+              Studio
             </h1>
           </div>
           <nav style={{ display: 'grid', gap: 8 }}>
-            {navItems.map(item => {
+            {navItems.map((item) => {
               const isActive = pathname === item.href
               return (
                 <Link
@@ -103,7 +101,7 @@ export function FactoryShell({
             })}
           </nav>
           <div style={{ marginTop: 24, paddingTop: 20, borderTop: '1px solid var(--line)', color: 'var(--muted)', fontSize: 13 }}>
-            {session ? `ログイン中: ${session.user.name}` : '投稿を始めるにはログインしてください'}
+            {session ? `Signed in as ${session.user.name}` : 'Sign in to use the studio workspace'}
           </div>
         </aside>
 
@@ -119,7 +117,7 @@ export function FactoryShell({
           >
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center', justifyContent: 'space-between' }}>
               <div>
-                <div style={{ fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--brand)' }}>ダッシュボード</div>
+                <div style={{ fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--brand)' }}>Daily Ops</div>
                 <h2 style={{ margin: '8px 0 6px', fontFamily: 'var(--font-display), sans-serif', fontSize: 34 }}>{title}</h2>
                 <p style={{ margin: 0, color: 'var(--muted)' }}>{subtitle}</p>
               </div>
@@ -135,7 +133,7 @@ export function FactoryShell({
                     cursor: 'pointer',
                   }}
                 >
-                  ログアウト
+                  Sign out
                 </button>
               )}
             </div>
@@ -152,18 +150,18 @@ export function FactoryShell({
                     boxShadow: 'var(--shadow)',
                   }}
                 >
-                  <h3 style={{ marginTop: 0, fontFamily: 'var(--font-display), sans-serif' }}>管理者ログイン</h3>
+                  <h3 style={{ marginTop: 0, fontFamily: 'var(--font-display), sans-serif' }}>Login</h3>
                   <form onSubmit={handleLogin} style={{ display: 'grid', gap: 14, maxWidth: 420 }}>
                     <label style={{ display: 'grid', gap: 8 }}>
-                      <span style={{ fontSize: 14, fontWeight: 500 }}>メールアドレス</span>
+                      <span style={{ fontSize: 14, fontWeight: 500 }}>Email address</span>
                       <input value={email} onChange={event => setEmail(event.target.value)} style={fieldStyle} required />
                     </label>
                     <label style={{ display: 'grid', gap: 8 }}>
-                      <span style={{ fontSize: 14, fontWeight: 500 }}>パスワード</span>
+                      <span style={{ fontSize: 14, fontWeight: 500 }}>Password</span>
                       <input type="password" value={password} onChange={event => setPassword(event.target.value)} style={fieldStyle} required />
                     </label>
                     {error && <div style={{ color: 'var(--danger)', fontSize: 14 }}>{error}</div>}
-                    <button type="submit" style={primaryButtonStyle}>サインイン</button>
+                    <button type="submit" style={primaryButtonStyle}>Sign in</button>
                   </form>
                 </section>
               )
@@ -187,7 +185,7 @@ export function FactoryShell({
           backdropFilter: 'blur(20px)',
           overflowX: 'auto',
           whiteSpace: 'nowrap',
-          scrollbarWidth: 'none', // For Firefox
+          scrollbarWidth: 'none',
         }}
         className="factory-bottom-nav"
       >
@@ -262,7 +260,7 @@ export const softCardStyle: CSSProperties = {
   border: '1px solid var(--line)',
 }
 
-export function LoadingSpinner({ label = 'Loading…' }: { label?: string }) {
+export function LoadingSpinner({ label = 'Loading...' }: { label?: string }) {
   return (
     <section style={{ ...cardStyle, display: 'flex', alignItems: 'center', gap: 14, color: 'var(--muted)' }}>
       <span style={{
@@ -283,4 +281,3 @@ export function LoadingSpinner({ label = 'Loading…' }: { label?: string }) {
     </section>
   )
 }
-

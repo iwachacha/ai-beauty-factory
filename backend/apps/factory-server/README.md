@@ -1,28 +1,34 @@
 # Factory Server
 
-Minimal personal SNS factory backend extracted from AiToEarn.
+NestJS backend for Studio v1.
 
-## Supported platforms
-
-- `x`
-- `instagram`
-- `threads`
-- `tiktok`
-- `youtube`
-
-## Core routes
+## Studio routes
 
 - `POST /api/auth/login`
+- `GET /api/studio/v1/characters`
+- `POST /api/studio/v1/characters`
+- `GET /api/studio/v1/templates`
+- `POST /api/studio/v1/templates`
+- `GET /api/studio/v1/channel-account`
+- `POST /api/studio/v1/channel-account`
+- `GET /api/studio/v1/generation-runs`
+- `GET /api/studio/v1/generation-runs/:runId`
+- `POST /api/studio/v1/generation-runs`
+- `GET /api/studio/v1/generated-assets`
+- `POST /api/studio/v1/generated-assets/:generatedAssetId/review`
+- `GET /api/studio/v1/content-drafts`
+- `POST /api/studio/v1/content-drafts`
+- `GET /api/studio/v1/publish-packages`
+- `POST /api/studio/v1/publish-packages`
+- `POST /api/studio/v1/published-posts`
+- `GET /api/studio/v1/insights`
+
+## Supporting routes
+
 - `GET /api/accounts`
 - `POST /api/accounts/connect/:platform`
-- `GET /api/content/assets`
-- `POST /api/content/assets`
-- `GET /api/flows`
-- `POST /api/flows`
-- `POST /api/flows/:flowId/enqueue`
-- `GET /api/jobs`
-- `POST /api/jobs/:jobId/retry`
 - `GET /api/settings/api-keys`
+- `POST /api/settings/api-keys`
 
 ## Required envs
 
@@ -36,15 +42,12 @@ Minimal personal SNS factory backend extracted from AiToEarn.
 - `FACTORY_ADMIN_PASSWORD`
 - `FACTORY_ADMIN_NAME`
 
-## Optional OAuth envs
+## Optional envs
 
 - `TWITTER_CLIENT_ID`
 - `TWITTER_CLIENT_SECRET`
-- `INSTAGRAM_CLIENT_ID`
-- `INSTAGRAM_CLIENT_SECRET`
-- `THREADS_CLIENT_ID`
-- `THREADS_CLIENT_SECRET`
-- `TIKTOK_CLIENT_ID`
-- `TIKTOK_CLIENT_SECRET`
-- `YOUTUBE_CLIENT_ID`
-- `YOUTUBE_CLIENT_SECRET`
+- `COMFYUI_SERVER_ADDRESS`
+- `COMFYUI_WORKFLOW_PATH`
+- `COMFYUI_MODEL`
+- `COMFYUI_WIDTH`
+- `COMFYUI_HEIGHT`

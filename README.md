@@ -1,84 +1,105 @@
-# AI Beauty Monetization Factory
+# AI Beauty Studio
 
-AI美女（AIインフルエンサー）を用いた複数SNS・Fanvueアカウントでの収益化とエンゲージメント獲得を自動化・効率化する「AI美女運用専用工場」ダッシュボードです。
+Single-operator studio for running one X account with a semi-automatic workflow:
 
-元々の汎用版 `sns-factory` から分岐し、AI美女の「キャラクター設計」「独自プロンプト管理（チラリズム/フェチ）」「画像生成API連携」に特化した構成となっています。
+`Character -> Template -> ComfyUI generation -> Human review -> Publish package -> Manual post -> Insights`
 
-## 構成
+## What is in this repo
 
 - `backend`
-  - Nx + NestJS workspace (MongoDB連携)
-  - 実行 app は `apps/factory-server`
-  - 主な機能: `Characters`, `Templates`, `Calendar`, `Monetization`, `ComfyUI Job` 管理
+  - Nx + NestJS workspace
+  - Main app: `apps/factory-server`
+  - New Studio API lives under `backend/apps/factory-server/src/studio`
 - `web`
-  - Next.js 管理画面
-  - 画面: 
-    - `/characters`: AIモデル管理
-    - `/templates`: シーンやプロンプト (フェチ要素等) DB
-    - `/monetization`: 配信・収益プラットフォーム一覧
-    - `/calendar`: 投稿スケジュール
+  - Next.js admin UI
+  - Main routes:
+    - `/characters`
+    - `/templates`
+    - `/generate`
+    - `/review`
+    - `/publish`
+    - `/insights`
+    - `/settings`
 - `scripts`
-  - ComfyUI API呼び出し用の Python スクリプト (`batch_generate.py`) 等
-- `docker-compose.yml`
-  - 無料で扱いやすい `MongoDB + Valkey` の最小構成
+  - local start scripts
+  - Studio smoke test
+  - ComfyUI workflow + mock server
+- `walkthrough.md`
+  - concept and intended operating model
 
-## ローカル起動
+## Local setup
 
-前提:
-- Node.js 24 系
-- `corepack` が使えること
-- Docker Desktop か互換環境
+Requirements:
 
-1. DB を起動します。
+- Node.js 24+
+- `corepack`
+- Docker Desktop
+
+1. Start MongoDB and Valkey.
 
 ```powershell
 docker compose up -d
 ```
 
-2. backend 依存を入れます。
+2. Install backend dependencies.
 
 ```powershell
 cd backend
 corepack pnpm install
 ```
 
-3. web 依存を入れます。
+3. Install web dependencies.
 
 ```powershell
 cd ../web
 npm install
 ```
 
-4. backend を build します。
+4. Build backend and web.
 
 ```powershell
 cd ../backend
 corepack pnpm run build:factory
+cd ../web
+npm run build
 ```
 
-5. backend と web を起動します。
+5. Start backend and web.
 
 ```powershell
 cd ..
 powershell -ExecutionPolicy Bypass -File .\scripts\start-backend.ps1
 ```
 
-別ターミナル:
-
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\start-web.ps1
 ```
 
-6. 管理画面を開きます。
+6. Open the studio UI.
 
-- `http://localhost:6070/characters`
-- 既定ログイン:
+- `http://localhost:6070/review`
+- login values come from `FACTORY_ADMIN_EMAIL` and `FACTORY_ADMIN_PASSWORD`
+- if those envs are unset, the local defaults are:
   - email: `admin@example.com`
   - password: `changeme123`
 
-## プロンプトと実装ルール
-詳細は `walkthrough.md` を参照してください。
+## Smoke test
 
-## ライセンス
+The smoke script now exercises the Studio v1 flow end to end:
 
-- ルートの `LICENSE.txt` は MIT です。
+- login
+- seed one local X account
+- activate the account
+- create character and template
+- run generation through a mock ComfyUI server
+- approve the generated asset
+- create a content draft
+- export a publish package
+- record a published post
+- verify insights and the review page shell
+
+Run it after backend/web are built:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\smoke.ps1
+```
