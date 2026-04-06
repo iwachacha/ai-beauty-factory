@@ -11,6 +11,7 @@ Use this skill for product, backend, frontend, script, CI, or workflow changes i
 
 - Ask the user thorough non-technical specification and direction questions before any non-trivial implementation.
 - Ask the user only about specification, direction, priorities, UX, operating policy, examples, constraints, and approval for dangerous actions.
+- Present specification and direction questions in short multiple-choice format whenever practical.
 - Do not ask the user technical implementation questions when the answer can be discovered locally.
 - Do not ask the user to choose tools, libraries, frameworks, CI setup, infrastructure, or test technology.
 - Read the relevant code, tests, scripts, and docs before deciding how to implement a change.
@@ -21,6 +22,8 @@ Use this skill for product, backend, frontend, script, CI, or workflow changes i
 - Use `docs/spec-alignment-checklist.md` before starting any non-trivial work.
 - Keep asking specification and direction questions until expected behavior, success criteria, and non-goals are clear.
 - Ask in plain language the user can answer quickly.
+- Prefer short multiple-choice questions with a recommended option first.
+- Use free-form only when options would hide nuance or force a bad fit.
 - Group related questions so the user can reply efficiently.
 - After the user answers, restate the confirmed direction before writing code.
 - If the user has already delegated technical choices to the AI, treat technical ambiguity as a local research task.

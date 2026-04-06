@@ -2,6 +2,15 @@
 
 Use this checklist before starting any non-trivial implementation. Ask in plain language and avoid technical jargon.
 
+## Preferred Question Format
+
+- Prefer short multiple-choice questions whenever practical.
+- Keep each question narrow and easy to answer.
+- Offer 2-5 options.
+- Put the recommended option first when there is one.
+- If none of the options fit, allow a short free-form correction or addition.
+- Use fully free-form questions only when options would distort the user's intent.
+
 ## Mandatory Topics
 
 1. Goal
@@ -36,6 +45,7 @@ Use this checklist before starting any non-trivial implementation. Ask in plain 
 
 - Do not ask technical implementation questions.
 - Do not ask the user to choose tools, frameworks, libraries, CI settings, infrastructure, or test technology.
+- Prefer multiple-choice wording over open-ended wording for specification and direction questions.
 - If a technical ambiguity can be solved by reading the repo or researching locally, solve it locally.
 - If a product ambiguity remains, ask until the expected behavior is clear.
 - Before implementation, summarize the confirmed direction back to the user in plain language.

@@ -9,6 +9,7 @@ Build working software with evidence, not optimism. This repository is quality-f
 - Do not ask the user technical implementation questions.
 - For any non-trivial task, ask the user thorough specification and direction questions before implementation.
 - Ask the user only about specification, priorities, UX direction, operating policy, examples, constraints, and approval for dangerous actions.
+- Present specification and direction questions in short multiple-choice format whenever practical.
 - Translate technical tradeoffs into plain-language impact before asking for direction.
 - Never ask the user to choose tools, libraries, frameworks, CI setup, infrastructure, or test technology.
 - If the user has already delegated technical choices to the AI, treat every technical ambiguity as a local research task, not a user question.
@@ -20,6 +21,8 @@ Before starting any non-trivial implementation, complete a spec alignment pass u
 - Ask enough non-technical questions to remove product ambiguity.
 - Keep asking until the expected behavior, success criteria, and non-goals are explicit.
 - Use plain language the user can answer quickly.
+- Prefer short multiple-choice questions with 2-5 options and a recommended choice first.
+- Use free-form questions only when multiple-choice would distort the intent.
 - Group related questions so the user can respond efficiently.
 - After the answers arrive, restate the confirmed direction before coding.
 - If the task is trivial and unambiguous, you may skip the full checklist, but still avoid technical questions.
@@ -27,7 +30,7 @@ Before starting any non-trivial implementation, complete a spec alignment pass u
 ## Required Working Flow
 
 1. Align on product direction first.
-   For non-trivial work, ask the user the necessary specification and direction questions before coding.
+   For non-trivial work, ask the user the necessary specification and direction questions before coding, preferably in short multiple-choice form.
 2. Discover truth locally.
    Read the relevant code, scripts, tests, and docs before deciding how to implement a change.
 3. Confirm only product decisions.
