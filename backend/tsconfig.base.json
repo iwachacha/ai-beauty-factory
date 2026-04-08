@@ -26,7 +26,8 @@
       "@yikart/mongodb": ["libs/mongodb/src/index.ts"],
       "@yikart/nest-mcp": ["libs/nest-mcp/src/index.ts"],
       "@yikart/redis": ["libs/redis/src/index.ts"],
-      "@yikart/redlock": ["libs/redlock/src/index.ts"]
+      "@yikart/redlock": ["libs/redlock/src/index.ts"],
+      "@yikart/studio-contracts": ["libs/studio-contracts/src/index.ts"]
     },
     "strict": true,
     "strictBindCallApply": true,

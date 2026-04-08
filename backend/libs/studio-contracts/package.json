@@ -1,0 +1,9 @@
+{
+  "name": "@yikart/studio-contracts",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "zod": "^4.3.5"
+  }
+}

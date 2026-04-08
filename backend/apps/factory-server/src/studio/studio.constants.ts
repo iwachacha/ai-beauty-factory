@@ -1,5 +1,6 @@
 import type {
-  StudioPublishPackage,
+  StudioPaidOfferPackage,
+  StudioPublicPostPackage,
   StudioQualityCheck,
   StudioRejectReason,
   StudioReviewDecision,
@@ -13,22 +14,22 @@ export const STUDIO_DEFAULT_WORKFLOW_PATH = '../scripts/comfyui/workflow_api.jso
 export const STUDIO_DEFAULT_WIDTH = 1024
 export const STUDIO_DEFAULT_HEIGHT = 1536
 export const STUDIO_REVIEW_REASON_LABELS: Record<StudioRejectReason, string> = {
-  face_inconsistency: '顔の一貫性',
-  anatomy: '解剖学的破綻',
-  ai_texture: 'AI感の強い質感',
-  clothing_physics: '衣服の物理破綻',
-  platform_risk: 'プラットフォーム規約リスク',
-  low_composition: '構図の弱さ',
-  other: 'その他',
+  face_inconsistency: 'Face inconsistency',
+  anatomy: 'Anatomy issue',
+  ai_texture: 'AI texture issue',
+  clothing_physics: 'Clothing physics issue',
+  platform_risk: 'Platform risk',
+  low_composition: 'Low composition quality',
+  other: 'Other',
 }
 
 const REVIEW_QUALITY_LABELS = [
-  ['face_consistency', '顔の一貫性'],
-  ['anatomy', '解剖学'],
-  ['ai_texture', 'AI感の排除'],
-  ['clothing_physics', '衣服の自然さ'],
-  ['platform_risk', '規約適合性'],
-  ['composition', '構図の強さ'],
+  ['face_consistency', 'Face consistency'],
+  ['anatomy', 'Anatomy'],
+  ['ai_texture', 'AI texture'],
+  ['clothing_physics', 'Clothing physics'],
+  ['platform_risk', 'Public safety'],
+  ['composition', 'Composition'],
 ] as const
 
 export function createPendingQualityChecks(): StudioQualityCheck[] {
@@ -60,7 +61,7 @@ export function applyReviewToQualityChecks(
       return {
         ...item,
         status: 'failed',
-        detail: '要再調整',
+        detail: 'Operator rejected this check.',
       }
     }
 
@@ -72,12 +73,21 @@ export function applyReviewToQualityChecks(
   })
 }
 
-export function buildDefaultPublishChecklist(): StudioPublishPackage['checklist'] {
+export function buildDefaultPublicPostChecklist(): StudioPublicPostPackage['checklist'] {
   return [
-    '画像プレビューを確認する',
-    '最終キャプションをX投稿画面へ反映する',
-    '投稿後にURLを記録する',
-    '初期メトリクスをInsightsへ手入力する',
+    'Confirm the crop and teaser stay public-safe.',
+    'Paste the final Fanvue route URL before posting.',
+    'Verify hashtags and CTA match the offer.',
+    'Record public-side metrics after the post goes live.',
+  ]
+}
+
+export function buildDefaultPaidOfferChecklist(): StudioPaidOfferPackage['checklist'] {
+  return [
+    'Confirm the Fanvue destination and pricing context.',
+    'Check the teaser and body match the exported asset.',
+    'Verify any premium-only notes stay off the public post.',
+    'Record conversion and renewal signals after delivery.',
   ]
 }
 

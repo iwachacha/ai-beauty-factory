@@ -1,18 +1,15 @@
 # Studio Web
 
-Next.js admin UI for the Studio v1 workflow.
+Next.js operator UI for the lean X -> Fanvue control room.
 
 ## Main routes
 
-- `/review`
-- `/generate`
-- `/publish`
+- `/setup`
+- `/ops`
 - `/insights`
-- `/characters`
-- `/templates`
 - `/settings`
 
-Legacy routes such as `/accounts`, `/library`, `/flows`, `/queue`, `/calendar`, and `/monetization` now redirect into the Studio workflow.
+Legacy routes such as `/review`, `/publish`, `/generate`, `/characters`, `/templates`, `/accounts`, `/library`, `/flows`, `/queue`, `/calendar`, and `/monetization` are intentionally removed and should return `404`.
 
 ## Environment
 
@@ -35,4 +32,5 @@ npm run verify
 ```
 
 `npm run verify` runs the full local web verification sequence used by the repository guardrails.
-`npm run test:e2e:studio` runs the browser-only studio flow against an already running stack.
+`npm run test:e2e:studio` runs the browser-only `setup -> ops -> insights` flow against an already running stack.
+`npm run dev` and `npm run build` intentionally use webpack so the UI can import the shared Studio contracts from `../backend/libs/studio-contracts/src/index.ts`.

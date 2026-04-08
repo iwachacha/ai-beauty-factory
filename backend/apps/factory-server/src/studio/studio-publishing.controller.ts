@@ -3,8 +3,9 @@ import { GetToken, TokenInfo } from '@yikart/aitoearn-auth'
 import { StudioPublishingService } from './studio-publishing.service'
 import {
   CreateStudioContentDraftDto,
-  CreateStudioPublishedPostDto,
-  CreateStudioPublishPackageDto,
+  CreateStudioFunnelMetricsDto,
+  CreateStudioPaidOfferPackageDto,
+  CreateStudioPublicPostPackageDto,
 } from './studio.dto'
 
 @Controller('studio/v1')
@@ -21,19 +22,29 @@ export class StudioPublishingController {
     return await this.studioPublishingService.createDraft(token.id, body)
   }
 
-  @Get('publish-packages')
-  async listPublishPackages(@GetToken() token: TokenInfo) {
-    return await this.studioPublishingService.listPublishPackages(token.id)
+  @Get('public-post-packages')
+  async listPublicPostPackages(@GetToken() token: TokenInfo) {
+    return await this.studioPublishingService.listPublicPostPackages(token.id)
   }
 
-  @Post('publish-packages')
-  async createPublishPackage(@GetToken() token: TokenInfo, @Body() body: CreateStudioPublishPackageDto) {
-    return await this.studioPublishingService.createPublishPackage(token.id, body)
+  @Post('public-post-packages')
+  async createPublicPostPackage(@GetToken() token: TokenInfo, @Body() body: CreateStudioPublicPostPackageDto) {
+    return await this.studioPublishingService.createPublicPostPackage(token.id, body)
   }
 
-  @Post('published-posts')
-  async createPublishedPost(@GetToken() token: TokenInfo, @Body() body: CreateStudioPublishedPostDto) {
-    return await this.studioPublishingService.recordPublishedPost(token.id, body)
+  @Get('paid-offer-packages')
+  async listPaidOfferPackages(@GetToken() token: TokenInfo) {
+    return await this.studioPublishingService.listPaidOfferPackages(token.id)
+  }
+
+  @Post('paid-offer-packages')
+  async createPaidOfferPackage(@GetToken() token: TokenInfo, @Body() body: CreateStudioPaidOfferPackageDto) {
+    return await this.studioPublishingService.createPaidOfferPackage(token.id, body)
+  }
+
+  @Post('funnel-metrics')
+  async createFunnelMetrics(@GetToken() token: TokenInfo, @Body() body: CreateStudioFunnelMetricsDto) {
+    return await this.studioPublishingService.recordFunnelMetrics(token.id, body)
   }
 
   @Get('insights')

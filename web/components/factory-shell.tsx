@@ -8,13 +8,10 @@ import { factoryFetch } from '../lib/factory-api'
 import { useFactory } from './factory-provider'
 
 const navItems = [
-  { href: '/characters', label: 'Characters', description: 'Persona and identity' },
-  { href: '/templates', label: 'Templates', description: 'Prompt building blocks' },
-  { href: '/generate', label: 'Generate', description: 'ComfyUI generation' },
-  { href: '/review', label: 'Review', description: 'Approve or reject assets' },
-  { href: '/publish', label: 'Publish', description: 'Manual posting package' },
+  { href: '/setup', label: 'Setup', description: 'Character bible and policy defaults' },
+  { href: '/ops', label: 'Ops', description: 'Generate, review, and export' },
   { href: '/insights', label: 'Insights', description: 'Track post results' },
-  { href: '/settings', label: 'Settings', description: 'X account and API access' },
+  { href: '/settings', label: 'Settings', description: 'X access and Fanvue destination' },
 ]
 
 export function FactoryShell({
@@ -117,7 +114,7 @@ export function FactoryShell({
           >
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center', justifyContent: 'space-between' }}>
               <div>
-                <div style={{ fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--brand)' }}>Daily Ops</div>
+                <div style={{ fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--brand)' }}>Lean Control Room</div>
                 <h2 style={{ margin: '8px 0 6px', fontFamily: 'var(--font-display), sans-serif', fontSize: 34 }}>{title}</h2>
                 <p style={{ margin: 0, color: 'var(--muted)' }}>{subtitle}</p>
               </div>

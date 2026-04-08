@@ -120,6 +120,7 @@ describe('studioGenerationService', () => {
         assetId: 'job-1:image.png',
         previewUrl: 'https://example.com/image.png',
         reviewStatus: 'pending_review',
+        surfaceFit: null,
         reviewScore: null,
         rejectionReasons: [],
         operatorNote: '',
@@ -216,5 +217,31 @@ describe('studioGenerationService', () => {
 
     expect(result.run.status).toBe('failed')
     expect(assetModel.insertMany).not.toHaveBeenCalled()
+  })
+
+  it('stores surface fit when approving an asset', async () => {
+    assetModel.findOne.mockReturnValue({
+      lean: () => ({ exec: () => Promise.resolve({
+        id: 'asset-record-1',
+        qualityChecks: [],
+      }) }),
+    })
+    assetModel.findByIdAndUpdate.mockReturnValue({
+      lean: () => ({ exec: () => Promise.resolve({
+        id: 'asset-record-1',
+        reviewStatus: 'approved',
+        surfaceFit: 'public_safe',
+      }) }),
+    })
+
+    const result = await service.reviewAsset('user-1', 'asset-record-1', {
+      decision: 'approve',
+      surfaceFit: 'public_safe',
+      reviewScore: 95,
+      rejectionReasons: [],
+      operatorNote: 'Approved for public teaser',
+    })
+
+    expect(result?.surfaceFit).toBe('public_safe')
   })
 })

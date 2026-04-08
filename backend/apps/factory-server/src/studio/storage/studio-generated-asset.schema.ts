@@ -1,4 +1,4 @@
-import type { StudioQualityCheck, StudioRejectReason } from '../studio.contracts'
+import type { StudioAssetSurfaceFit, StudioQualityCheck, StudioRejectReason } from '../studio.contracts'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { DEFAULT_SCHEMA_OPTIONS, WithTimestampSchema } from '@yikart/mongodb'
 
@@ -20,6 +20,9 @@ export class StudioGeneratedAssetEntity extends WithTimestampSchema {
 
   @Prop({ required: true, type: String, default: 'pending_review', index: true })
   reviewStatus: 'pending_review' | 'approved' | 'rejected' | 'needs_regenerate'
+
+  @Prop({ required: false, type: String, default: null })
+  surfaceFit: StudioAssetSurfaceFit | null
 
   @Prop({ required: false, type: Number, default: null })
   reviewScore: number | null

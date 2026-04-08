@@ -12,16 +12,31 @@ export class StudioContentDraftEntity extends WithTimestampSchema {
   generatedAssetId: string
 
   @Prop({ required: true, type: [String], default: [] })
-  captionOptions: string[]
+  publicCaptionOptions: string[]
 
   @Prop({ required: true, type: [String], default: [] })
-  hashtags: string[]
+  publicHashtags: string[]
 
   @Prop({ required: false, type: String, default: '' })
-  cta: string
+  publicCtaLabel: string
+
+  @Prop({ required: false, type: String, default: 'https://fanvue.com' })
+  publicCtaUrl: string
 
   @Prop({ required: false, type: String, default: '' })
-  publishNote: string
+  publicPostNote: string
+
+  @Prop({ required: false, type: String, default: '' })
+  paidTitle: string
+
+  @Prop({ required: false, type: String, default: '' })
+  paidHook: string
+
+  @Prop({ required: false, type: String, default: '' })
+  paidBody: string
+
+  @Prop({ required: false, type: String, default: '' })
+  paidOfferNote: string
 
   @Prop({ required: true, type: String, default: 'draft', index: true })
   status: 'draft' | 'ready'

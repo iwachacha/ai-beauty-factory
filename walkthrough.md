@@ -1,114 +1,80 @@
-# AI美女裏垢 収益化プロジェクト — マスタードキュメント (Walkthrough)
+# AI Beauty Studio Walkthrough
 
-## 1. プロジェクト概要・コンセプト
-SNS上で実在するかのようなAIインフルエンサー（AI美女）を運用し、Fanvueなどのプラットフォームでのサブスクリプション収益と、SNS上でのエンゲージメント獲得を自動化・効率化するプロジェクトです。
-単なる画像生成にとどまらず、キャラクターの「バックボーン」「生活感」「フェティシズム」を綿密に設計し、ダッシュボードから一元管理できるシステムを構築しています。
+## Product shape
 
----
+このリポジトリの v1 は、1つの公開 X アカウントと 1つの有料 Fanvue 導線だけに絞った運用室です。
+目的は「画面を増やすこと」ではなく、次のループを短く、確実に回すことです。
 
-## 2. キャラクター設計 (Character Bible)
-日本のグラビアや海外の有名インフルエンサーをベンチマークし、属性やターゲット層が被らない多国籍の4名のキャラクターを設定しています。
-顔プロンプトは変更せず、IP-Adapter FaceIDリファレンス画像（3枚セット）を固定することで同一人物の「顔の崩れ・変化」を防ぐ設計です。
+`Setup -> Ops -> Insights -> Settings`
 
-| キャラ | 国籍 | 職業 | 得意フェチ | ティア主戦場 |
-|--------|------|------|-----------|------------|
-| **Yuna 🇯🇵** | 日本 | IT企業OL | 絶対領域、汗ばみ | free_sns主体 |
-| **Soojin 🇰🇷** | 韓国 | カフェ店員 | 濡れ透け、風スカート | subscriber |
-| **Mei 🇹🇼** | 台湾 | 大学院生 | 浴衣隙間、朝ストレッチ | free_sns主体 |
-| **Riko 🇯🇵** | 日本 | 看護師 | 濡れ白衣、タオル巻き | subscriber/premium |
+## Four surfaces
 
-### Yuna (ユナ) - おっとり天然・照れ屋なピュア系OL
-24歳。渋谷のIT系スタートアップで働く。自分がセクシーだという自覚がなく、無意識の隙で男を惹きつける。
+### `/setup`
 
-### Soojin (スジン) - クールからのギャップ系モデル志望
-23歳。弘大（ホンデ）のカフェバリスタ。計算高く見えるが、天然な隙がある。スレンダーでスタイリッシュ。
+- キャラクターバイブル
+- プロンプトテンプレート
+- 公開側 CTA / ハッシュタグ / チェックリスト
+- 公開安全ラインと有料側ガイドライン
 
-### Mei (メイ) - 知的好奇心旺盛な無防備系文系女子
-22歳。台北の大学院生。本に夢中になると周りが見えなくなり、あぐらの隙間や、気だるい表情などの無防備な魅力を放つ。
+### `/ops`
 
-### Riko (りこ) - 世話焼きお姉さん・生活感あふれるナース
-26歳。内科病棟勤務の看護師。仕事の緊張感から解放された際の、私生活（お風呂上がりや寝起き）でのフェティシズムの体現。
+- 生成
+- レビュー
+- `public_safe` / `paid_only` のルーティング
+- 公開 X パッケージの作成
+- 有料 Fanvue パッケージの作成
 
----
+### `/insights`
 
-## 3. 独自プロンプトエンジン（チラリズムとフェチ機構）
-既存のAI美女アカウントと差別化するための強力な武器として、「意図しないセクシーさ（隙・ラッキースケベ要素）」を100%言語化し、プロンプト生成DBへ組み込みました。
+- 公開側メトリクス
+- 有料側メトリクス
+- クリックから売上までのファネル記録
 
-### 3-A. チラリズム（全18種） - 視覚的・構造的な隙間
-1. **絶対領域** (Zettai Ryouiki) / 2. **オフショル** (Off-shoulder) / 3. **浴衣隙間** (Yukata Gap) / 4. **風スカート** (Wind Skirt) / 5. **バックライン** (Back Line) / 6. **クロスレッグ** (Crossed Legs) / 7. **太ももの肉感** (Thigh Squish) / 8. **肩紐ずり落ち** (Shoulder Slip) / 9. **髪を結ぶ仕草/ヘアゴム口咥え** (Hair Tie) / 10. **谷間・俯瞰** (Cleavage Top) / 11. **パンちら** (Panty Flash) / 12. **前かがみ胸ちら** (Leaning Cleavage) / 13. **ブラ透け** (Bra Sheer) / 14. **パンティーライン** (VPL) / 15. **ボタンの隙間** (Button Gap) / 16. **あぐら・体操座りの隙間** (Relaxed Leg Gap) / 17. **床の物を拾う後ろ姿** (Bending Over Back) / 18. **着替えの途中** (Mid-undress)
+### `/settings`
 
-### 3-B. フェティシズム（全16種） - 仕草とリアルな質感
-1. **濡れ透け** (Wet Sheer) / 2. **汗ばみ** (Dewy Skin) / 3. **首筋汗** (Neck Sweat) / 4. **タオル巻き** (Towel Wrap) / 5. **雨濡れ髪** (Wet Hair) / 6. **朝ストレッチ** (Morning Stretch) / 7. **入浴** (Steam Bath) / 8. **脇見せ** (Armpits) / 9. **鎖骨** (Collarbone) / 10. **シースルー・レース素材** (See-through) / 11. **ずれた眼鏡** (Glasses Slip) / 12. **OLスーツ・パンスト足** (Pantyhose Feet) / 13. **ピタニット・リブニット** (Rib-knit Bust) / 14. **下着の紐を直す** (Adjusting Strap) / 15. **太ももに挟んだ手** (Hands between Thighs) / 16. **唇についた髪・指で拭う** (Touching Lips)
+- 認証
+- API base
+- X 接続とアクティブ化
+- Fanvue の手動エクスポート先
 
-### 3-C. ティア運用ルール（投稿先）
-これらの要素は、投稿先のプラットフォームに合わせて段階的に適用します。
-- `free_sns`: 完全SFW。ブラ透けやリブニットなど、間接的なフェチを使用。
-- `subscriber`: 濡れ透けや着替えの途中など、より強い隙やフェチを提供。
-- `premium`: 入浴、タオル巻き、あぐらの隙間など、最もプライベートでコアな領域。
+## Core objects
 
----
+- `StudioOperatorConfig`
+  - 公開側と有料側の基本方針
+- `StudioGeneratedAsset`
+  - レビュー結果に加えて `surfaceFit` を持つ
+- `StudioContentDraft`
+  - 公開文面と有料文面を同居させた下書き
+- `PublicPostPackage`
+  - X に出すための公開パッケージ
+- `PaidOfferPackage`
+  - Fanvue に出すための有料パッケージ
+- `FunnelMetrics`
+  - 公開反応と有料成果を1レコードで追う
 
-## 4. プロンプト・コンセプト参考情報 (References)
+## Review policy
 
-本プロジェクトの高品質な生成とコンセプト設計において、以下のX(旧Twitter)アカウントおよびプラットフォーム記事をプロンプトエンジニアリングや世界観のベンチマークとして参考にしています。
+- 承認だけでは足りません
+- 承認済みアセットは必ず `public_safe` か `paid_only` のどちらかに振り分けます
+- `paid_only` は公開 X パッケージ化を禁止します
+- 公開 X パッケージはアクティブな X アカウントがないと作れません
 
-#### X (旧Twitter) の先進的なAIクリエイター
-- **Beautyverse Lab** ([@beautyverse_lab](https://x.com/beautyverse_lab)): 極めて高品質なAI美女生成とプロンプトのテクニック。
-- **Reon** ([@reon_x_1000man](https://x.com/reon_x_1000man)): 収益化・フォロワー増加を意識したAI美女運用とマーケティング。
-- **Toma** ([@tomaaibijo](https://x.com/tomaaibijo)): 実写と見紛うクオリティのAI美女生成・運用。
-- **Davis Taylor Brown / Dalle Bot / teftef**: 海外・国内の優れたAIアーティスト。Altタグ等でのプロンプト公開が活発 ([記事参考](https://blogcake.net/generative-ai-twitter/))。
-- **月岡りおな**: 「制服×AI美女」といった明確なコンセプト路線の特化運用 ([TwStalker](https://twstalker.com/riona_aicampus))。
+## Verification expectations
 
-#### 設計と運用ナレッジ記事
-- **日常のフェチ要素の抽出**: [帰宅後のOLをリアルに再現する方法｜AI かわき](https://note.com/kawakijourney_ai/n/n72e6f630f3aa) (「着替え」「オフの姿」など日常に潜むリアルなフェチ要素を捉えたプロンプト設計)
-- **服装・ポーズプロンプト集**: [美女を生成するプロンプト一覧｜AI FREAK](https://note.com/ai_freak/n/ne39fea0a0801)
-- **リアルグラビア視点**: [【SDXL】AIグラビア・AI美女のプロンプトまとめ | ちちぷい](https://grm.chichi-pui.com/articles/incantation/ai-gravure/j80m8g0sc30a)
-- **継続運用の事例**: [SNS初投稿2周年｜Browncat](https://note.com/browncatro1/n/n63bcef9b9f3e)
-- **構図のアプローチ**: [CoffeeVectors インタビュー](https://aiartweekly.com/interviews/coffee-vectors)
+- `scripts/verify-fast.ps1`
+  - すべての変更で必須
+- `scripts/verify-full.ps1`
+  - Docker 互換ランタイムがある時だけローカルで実行
+- smoke / browser verification
+  - 旧ルートが `404`
+  - 未承認アセットの下書き化が拒否される
+  - X 未接続状態で公開エクスポートが拒否される
+  - `paid_only` が公開エクスポートを拒否される
+  - `setup -> ops -> insights` の主導線が通る
 
----
+## Non-goals for v1
 
-## 5. システムアーキテクチャ 
-
-生成品質の一貫性と、SNS運用の効率を最大化するためのエコシステムです。
-
-### A. バックエンド・ダッシュボード（Factory Shell）
-- **技術スタック**: Next.js (Turbo) + NestJS + MongoDB
-- **主要モジュール**:
-  - `Characters (/characters)`: キャラクター情報のCRUDとステータス。
-  - `Templates (/templates)`: 30種類以上におよぶシーンテンプレート（オフィス、カフェ、自宅など）や構図のDB。
-  - `Calendar (/calendar)`: キャラクター別・日別のSNS投稿スケジュールカレンダー管理。
-  - `Monetization (/monetization)`: プラットフォーム別収益データのレポーティングダッシュボード。
-
-### B. 画像生成パイプライン
-- **プラットフォーム**: ComfyUI (クラウド / RunPod GPU上でAPI稼働想定)
-- **顔の一貫性 (IP-Adapter FaceID)**: 前述の通り、プロンプトに加えてモデルベースで顔をアンカーし、ブレを排除。
-- **バッチ自動化 (`batch_generate.py`)**: プロンプトブロックDB (`prompt-blocks.json`) を読み込み、ランダムな衣装×フェチ×シナリオの画像を自動で一括並列生成するPythonスクリプトによるAPI連携。
-
----
-
-## 6. 画像品質評価（AI感の徹底排除）
-リアリティを追求するため、以下の項目（抜粋）で最終画像のフィルタリングを行います。
-
-1. **顔の一貫性**: リファレンス画像との同一性、斜視の有無。
-2. **解剖学的正確さ**: 指の本数、手・関節の不自然な曲がり方の排除。
-3. **AI感の排除**: プラスチックのような過度な平滑肌の排除、自然なキャッチライト。
-4. **服の物理法則**: 胸の形に張り付きすぎる違和感のない衣服、リブニットの自然な引っ張り。
-5. **規約適合性**: 各ティアプラットフォーム規約（SFW/NSFW）の遵守等。
-
----
-
-## 7. 実装状況と今後のステップ (Phases)
-
-| Phase | 状態 | 達成内容・タスク |
-|---|---|---|
-| **Phase 0: 基盤整備** | ✅ 完了 | キャラクター設計 (4人)、プロンプトブロックDB作成（全34種のフェチ・チラリズム）、シーンテンプレート整備、品質チェックリスト作成、Skill定義 |
-| **Phase 2: システム開発** | ✅ 完了 | NestJS バックエンドとMongoDB連携 (CRUD)、Next.js フロントエンドでの各ページ `/characters`, `/templates`, `/calendar`, `/monetization` のUI・API統合 |
-| **Phase 1: 環境構築・テスト** | 🔄 次のステップ | RunPod等でのComfyUI環境構築、IP-Adapterモデルのセットアップ、ComfyUI Workflowの疎通テスト、`batch_generate.py`を用いたテストバッチ生成と品質評価 |
-| **Phase 3: 自動運用開始** | 🔜 未着手 | 実際のFanvue等への投稿スケジュール実行、収益化トラッキング開始 |
-
-> ✅ **最新コミット状況**:
-> ブランチ `feature/ai-beauty-monetization` にてすべて統合・完了済み。
-> 次の作業として、`COMFYUI_SERVER_ADDRESS` が準備でき次第、画像パイプラインのテストへ移行します。
-
--- End of Master Document --
+- 複数公開チャネルの同時運用
+- Fanvue への直接自動投稿
+- 旧 `/review` `/publish` `/generate` `/characters` `/templates` UI の維持
+- 使われていない旧 beauty 専用 API の温存

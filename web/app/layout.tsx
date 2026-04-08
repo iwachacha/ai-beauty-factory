@@ -4,8 +4,8 @@ import './globals.css'
 import { FactoryProvider } from '../components/factory-provider'
 
 export const metadata: Metadata = {
-  title: 'AI Beauty Studio',
-  description: 'Single-account studio for generation, review, publishing, and insights.',
+  title: 'AI Beauty Control Room',
+  description: 'Lean X to Fanvue control room for generation, review, export, and funnel learning.',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {

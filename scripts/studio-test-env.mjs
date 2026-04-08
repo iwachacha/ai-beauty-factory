@@ -197,7 +197,7 @@ export async function startStudioStack(settings = getStudioSettings()) {
       throw new Error('Backend did not become ready on port 3012.')
     }
 
-    const webReady = await waitForHttpReady(`${settings.webBaseUrl}/review`, { retries: 45, delayMs: 1000, acceptedStatuses: [200] })
+    const webReady = await waitForHttpReady(`${settings.webBaseUrl}/ops`, { retries: 45, delayMs: 1000, acceptedStatuses: [200] })
     if (!webReady) {
       throw new Error('Web did not become ready on port 6070.')
     }
@@ -355,12 +355,53 @@ export async function ensureActiveSmokeAccount(session, settings, accountId = 't
   return channelState
 }
 
-export async function runSmokeFlow(session, settings, { runId = createRunId('smoke') } = {}) {
-  const baselineInsights = await fetchStudioJson(settings, '/studio/v1/insights', {
-    token: session.token,
-  })
-  const baselineTotalPosts = baselineInsights.summary.totalPosts
+function buildDraftBody(generatedAssetId, runId) {
+  return {
+    generatedAssetId,
+    publicCaptionOptions: [`Smoke caption option 1 ${runId}`, `Smoke caption option 2 ${runId}`],
+    publicHashtags: ['#StudioSmoke', '#AIBeauty'],
+    publicCtaLabel: 'Smoke CTA',
+    publicCtaUrl: `https://fanvue.com/${runId}`,
+    publicPostNote: 'Manual public export smoke check',
+    paidTitle: `Smoke paid title ${runId}`,
+    paidHook: `Smoke paid teaser ${runId}`,
+    paidBody: `Smoke paid body ${runId}`,
+    paidOfferNote: 'Manual Fanvue export smoke check',
+    status: 'draft',
+  }
+}
 
+async function expectStudioRequestFailure(settings, pathName, { method = 'GET', body, token, messageIncludes }) {
+  try {
+    await fetchStudioJson(settings, pathName, {
+      method,
+      body,
+      token,
+    })
+  }
+  catch (error) {
+    const message = error instanceof Error ? error.message : String(error)
+    if (messageIncludes && !message.includes(messageIncludes)) {
+      throw new Error(`Expected failure containing "${messageIncludes}" but received: ${message}`)
+    }
+    return message
+  }
+
+  throw new Error(`Expected ${method} ${pathName} to fail, but it succeeded.`)
+}
+
+export async function assertLegacyRoutesRemoved(settings, routes = ['/review', '/publish', '/generate', '/characters', '/templates']) {
+  for (const route of routes) {
+    const response = await fetch(`${settings.webBaseUrl}${route}`, { redirect: 'manual' })
+    if (response.status !== 404) {
+      throw new Error(`Legacy route ${route} should return 404 but returned ${response.status}.`)
+    }
+  }
+
+  return true
+}
+
+async function createFixtureRun(session, settings, { runId }) {
   const character = await fetchStudioJson(settings, '/studio/v1/characters', {
     method: 'POST',
     token: session.token,
@@ -409,92 +450,203 @@ export async function runSmokeFlow(session, settings, { runId = createRunId('smo
     throw new Error(`Smoke generation did not return any assets. status=${runDetail.run.status} error=${runDetail.run.error || 'none'}`)
   }
 
+  return {
+    character,
+    template,
+    runDetail,
+    asset,
+  }
+}
+
+async function createApprovedDraft(session, settings, { runId, surfaceFit }) {
+  const { character, template, runDetail, asset } = await createFixtureRun(session, settings, { runId })
+
   const reviewedAsset = await fetchStudioJson(settings, `/studio/v1/generated-assets/${asset.id}/review`, {
     method: 'POST',
     token: session.token,
     body: {
       decision: 'approve',
+      surfaceFit,
       reviewScore: 92,
       rejectionReasons: [],
-      operatorNote: 'Smoke approval',
+      operatorNote: `Smoke approval ${runId}`,
     },
   })
 
   const draft = await fetchStudioJson(settings, '/studio/v1/content-drafts', {
     method: 'POST',
     token: session.token,
-    body: {
-      generatedAssetId: asset.id,
-      captionOptions: ['Smoke caption option 1', 'Smoke caption option 2'],
-      hashtags: ['#StudioSmoke', '#AIBeauty'],
-      cta: 'Smoke CTA',
-      publishNote: 'Manual posting smoke check',
-      status: 'draft',
-    },
+    body: buildDraftBody(asset.id, runId),
   })
 
-  const publishPackage = await fetchStudioJson(settings, '/studio/v1/publish-packages', {
+  return {
+    character,
+    template,
+    runDetail,
+    asset,
+    reviewedAsset,
+    draft,
+  }
+}
+
+export async function runPreActivationNegativeChecks(session, settings, { runId = createRunId('negative-pre') } = {}) {
+  await assertLegacyRoutesRemoved(settings)
+
+  const pendingFixture = await createFixtureRun(session, settings, { runId: `${runId}-pending` })
+
+  await expectStudioRequestFailure(settings, '/studio/v1/content-drafts', {
+    method: 'POST',
+    token: session.token,
+    body: buildDraftBody(pendingFixture.asset.id, `${runId}-pending`),
+    messageIncludes: 'Only approved assets can become drafts',
+  })
+
+  const noAccountFixture = await createApprovedDraft(session, settings, {
+    runId: `${runId}-no-account`,
+    surfaceFit: 'public_safe',
+  })
+
+  await expectStudioRequestFailure(settings, '/studio/v1/public-post-packages', {
+    method: 'POST',
+    token: session.token,
+    body: {
+      contentDraftId: noAccountFixture.draft.id,
+      finalCaption: `No account caption ${runId}`,
+      ctaLabel: 'Smoke CTA',
+      ctaUrl: `https://fanvue.com/${runId}`,
+      checklist: ['Confirm crop'],
+    },
+    messageIncludes: 'Activate an X account before exporting a public package',
+  })
+
+  return {
+    legacyRoutesRemoved: true,
+    unapprovedDraftBlocked: true,
+    noActiveXBlocked: true,
+  }
+}
+
+export async function runPostActivationNegativeChecks(session, settings, { runId = createRunId('negative-post') } = {}) {
+  const paidOnlyFixture = await createApprovedDraft(session, settings, {
+    runId: `${runId}-paid-only`,
+    surfaceFit: 'paid_only',
+  })
+
+  await expectStudioRequestFailure(settings, '/studio/v1/public-post-packages', {
+    method: 'POST',
+    token: session.token,
+    body: {
+      contentDraftId: paidOnlyFixture.draft.id,
+      finalCaption: `Paid-only caption ${runId}`,
+      ctaLabel: 'Smoke CTA',
+      ctaUrl: `https://fanvue.com/${runId}`,
+      checklist: ['Confirm crop'],
+    },
+    messageIncludes: 'Only public_safe assets can become public packages',
+  })
+
+  return {
+    paidOnlyPublicExportBlocked: true,
+  }
+}
+
+export async function runSmokeFlow(session, settings, { runId = createRunId('smoke') } = {}) {
+  const baselineInsights = await fetchStudioJson(settings, '/studio/v1/insights', {
+    token: session.token,
+  })
+  const baselineTotalPublicPosts = baselineInsights.summary.totalPublicPosts
+
+  const { draft, reviewedAsset } = await createApprovedDraft(session, settings, {
+    runId,
+    surfaceFit: 'public_safe',
+  })
+
+  const publicPackage = await fetchStudioJson(settings, '/studio/v1/public-post-packages', {
     method: 'POST',
     token: session.token,
     body: {
       contentDraftId: draft.id,
-      finalCaption: 'Smoke final caption',
+      finalCaption: `Smoke final public caption ${runId}`,
+      ctaLabel: 'Smoke CTA',
+      ctaUrl: `https://fanvue.com/${runId}`,
       checklist: ['Confirm crop', 'Paste tracking URL'],
     },
   })
 
-  if (publishPackage.status !== 'prepared') {
-    throw new Error('Publish package was not prepared.')
+  if (publicPackage.status !== 'prepared') {
+    throw new Error('Public post package was not prepared.')
   }
 
-  const publishedPost = await fetchStudioJson(settings, '/studio/v1/published-posts', {
+  const paidPackage = await fetchStudioJson(settings, '/studio/v1/paid-offer-packages', {
     method: 'POST',
     token: session.token,
     body: {
-      publishPackageId: publishPackage.id,
-      platformPostUrl: `https://x.com/studio_smoke/status/${Date.now()}`,
-      manualMetrics: {
+      contentDraftId: draft.id,
+      title: `Smoke paid title ${runId}`,
+      teaserText: `Smoke paid teaser ${runId}`,
+      body: `Smoke paid body ${runId}`,
+      destinationUrl: `https://fanvue.com/${runId}`,
+      checklist: ['Verify destination', 'Confirm delivery notes'],
+    },
+  })
+
+  if (paidPackage.status !== 'prepared') {
+    throw new Error('Paid offer package was not prepared.')
+  }
+
+  const funnelMetrics = await fetchStudioJson(settings, '/studio/v1/funnel-metrics', {
+    method: 'POST',
+    token: session.token,
+    body: {
+      publicPostPackageId: publicPackage.id,
+      paidOfferPackageId: paidPackage.id,
+      publicPostUrl: `https://x.com/studio_smoke/status/${Date.now()}`,
+      publicMetrics: {
         impressions: 1000,
         likes: 120,
         reposts: 12,
         replies: 4,
         bookmarks: 8,
         profileVisits: 22,
-        linkClicks: 3,
+        linkClicks: 9,
       },
-      operatorMemo: 'Smoke published post',
+      paidMetrics: {
+        landingVisits: 40,
+        subscriberConversions: 5,
+        renewals: 2,
+        revenue: 49,
+      },
+      operatorMemo: 'Smoke funnel metrics',
     },
   })
 
-  if (!publishedPost.id) {
-    throw new Error('Published post record was not created.')
+  if (!funnelMetrics.id) {
+    throw new Error('Funnel metrics record was not created.')
   }
 
   const insights = await fetchStudioJson(settings, '/studio/v1/insights', {
     token: session.token,
   })
-  if (insights.summary.totalPosts < baselineTotalPosts + 1) {
-    throw new Error('Insights did not record the new published post.')
+  if (insights.summary.totalPublicPosts < baselineTotalPublicPosts + 1) {
+    throw new Error('Insights did not record the new public-to-paid funnel entry.')
   }
 
-  const reviewPageResponse = await fetch(`${settings.webBaseUrl}/review`)
-  const reviewPageContent = await reviewPageResponse.text()
-  const reviewPageHasShell = reviewPageContent.includes('AI Beauty Studio')
-  if (!reviewPageHasShell) {
-    throw new Error('Review page shell did not load correctly.')
+  const opsPageResponse = await fetch(`${settings.webBaseUrl}/ops`)
+  const opsPageContent = await opsPageResponse.text()
+  const opsPageHasShell = opsPageContent.includes('AI Beauty Studio')
+  if (!opsPageHasShell) {
+    throw new Error('Ops page shell did not load correctly.')
   }
 
   return {
-    activeAccountId: 'twitter_smoke_account',
-    characterId: character.id,
-    templateId: template.id,
-    generationStatus: runDetail.run.status,
     reviewStatus: reviewedAsset.reviewStatus,
     draftStatus: draft.status,
-    publishPackageStatus: publishPackage.status,
-    publishedPostId: publishedPost.id,
-    totalPosts: insights.summary.totalPosts,
-    reviewPageHasShell,
+    publicPackageStatus: publicPackage.status,
+    paidPackageStatus: paidPackage.status,
+    funnelMetricsId: funnelMetrics.id,
+    totalPublicPosts: insights.summary.totalPublicPosts,
+    totalRevenue: insights.summary.totalRevenue,
+    opsPageHasShell,
   }
 }
 

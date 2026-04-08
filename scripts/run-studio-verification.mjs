@@ -4,6 +4,8 @@ import {
   ensureActiveSmokeAccount,
   getNpmCommand,
   getStudioSettings,
+  runPostActivationNegativeChecks,
+  runPreActivationNegativeChecks,
   runCommand,
   runSmokeFlow,
   startStudioStack,
@@ -37,12 +39,22 @@ async function main() {
 
   try {
     const session = await waitForFactoryLogin(settings)
+    const preActivationSummary = await runPreActivationNegativeChecks(session, settings, { runId: `${runId}-pre` })
+    for (const [key, value] of Object.entries(preActivationSummary)) {
+      console.log(`${key}=${value}`)
+    }
+
     const channelState = await ensureActiveSmokeAccount(session, settings)
     console.log(`active_account_id=${channelState.activeAccountId}`)
 
     if (mode === 'browser') {
       await runBrowserFlow(settings, runId)
       console.log('browser_e2e_passed=true')
+    }
+
+    const postActivationSummary = await runPostActivationNegativeChecks(session, settings, { runId: `${runId}-post` })
+    for (const [key, value] of Object.entries(postActivationSummary)) {
+      console.log(`${key}=${value}`)
     }
 
     const smokeSummary = await runSmokeFlow(session, settings, { runId: `${runId}-smoke` })

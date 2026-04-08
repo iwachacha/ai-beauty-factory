@@ -929,6 +929,12 @@ importers:
         specifier: ^4.3.5
         version: 4.3.6
 
+  libs/studio-contracts:
+    dependencies:
+      zod:
+        specifier: ^4.3.5
+        version: 4.3.6
+
 packages:
 
   '@alicloud/credentials@2.4.4':

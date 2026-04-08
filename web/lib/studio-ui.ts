@@ -1,4 +1,5 @@
 import type {
+  StudioAssetSurfaceFit,
   StudioGenerationRun,
   StudioGeneratedAsset,
   StudioRejectReason,
@@ -26,6 +27,11 @@ export const studioReviewReasonOptions: Array<{ value: StudioRejectReason, label
   { value: 'other', label: 'Other' },
 ]
 
+export const studioSurfaceFitOptions: Array<{ value: StudioAssetSurfaceFit, label: string, description: string }> = [
+  { value: 'public_safe', label: 'Public safe', description: 'Allowed to become an X teaser post.' },
+  { value: 'paid_only', label: 'Paid only', description: 'Keep this asset off the public feed and reserve it for Fanvue.' },
+]
+
 export const studioGenerationStatusLabels: Record<StudioGenerationRun['status'], string> = {
   queued: 'Queued',
   running: 'Running',
@@ -38,6 +44,11 @@ export const studioReviewStatusLabels: Record<StudioGeneratedAsset['reviewStatus
   approved: 'Approved',
   rejected: 'Rejected',
   needs_regenerate: 'Needs regenerate',
+}
+
+export const studioSurfaceFitLabels: Record<StudioAssetSurfaceFit, string> = {
+  public_safe: 'Public safe',
+  paid_only: 'Paid only',
 }
 
 export function splitCommaSeparated(value: string) {
@@ -93,6 +104,14 @@ export function formatCompactDateTime(value?: string | null) {
 
 export function formatNumber(value: number) {
   return new Intl.NumberFormat('ja-JP').format(value)
+}
+
+export function formatCurrency(value: number) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+  }).format(value)
 }
 
 export function statusChipStyle(tone: 'default' | 'success' | 'danger' = 'default') {

@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 6070",
+    "dev": "next dev --webpack -p 6070",
     "typecheck": "tsc --noEmit",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start -p 6070",
     "test": "vitest run --config vitest.config.ts",
     "test:e2e:studio": "playwright test -c playwright.studio.config.ts",

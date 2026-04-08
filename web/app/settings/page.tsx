@@ -6,7 +6,11 @@ import z from 'zod'
 import { cardStyle, FactoryShell, fieldStyle, primaryButtonStyle, softCardStyle } from '../../components/factory-shell'
 import { useFactory } from '../../components/factory-provider'
 import { factoryFetch } from '../../lib/factory-api'
-import { studioChannelAccountStateSchema } from '../../lib/studio-contracts'
+import {
+  createStudioOperatorConfigRequestSchema,
+  studioChannelAccountStateSchema,
+  studioOperatorConfigSchema,
+} from '../../lib/studio-contracts'
 import { studioFetch } from '../../lib/studio-api'
 import { formatDateTime, formatNumber, statusChipStyle } from '../../lib/studio-ui'
 
@@ -21,9 +25,11 @@ export default function SettingsPage() {
   const [draftApiBase, setDraftApiBase] = useState(apiBase)
   const [apiKeys, setApiKeys] = useState<z.infer<typeof apiKeyListSchema>>([])
   const [channelState, setChannelState] = useState<z.infer<typeof studioChannelAccountStateSchema> | null>(null)
+  const [operatorConfig, setOperatorConfig] = useState<z.infer<typeof studioOperatorConfigSchema> | null>(null)
   const [name, setName] = useState('')
   const [lastCreatedKey, setLastCreatedKey] = useState('')
   const [loading, setLoading] = useState(false)
+  const [savingDestination, setSavingDestination] = useState(false)
   const [error, setError] = useState('')
 
   const activeStudioAccount = useMemo(
@@ -38,12 +44,14 @@ export default function SettingsPage() {
 
     setLoading(true)
     try {
-      const [keyData, nextChannelState] = await Promise.all([
+      const [keyData, nextChannelState, nextOperatorConfig] = await Promise.all([
         studioFetch('/settings/api-keys', apiKeyListSchema, {}, session.token, apiBase),
         studioFetch('/studio/v1/channel-account', studioChannelAccountStateSchema, {}, session.token, apiBase),
+        studioFetch('/studio/v1/operator-config', studioOperatorConfigSchema, {}, session.token, apiBase),
       ])
       setApiKeys(keyData)
       setChannelState(nextChannelState)
+      setOperatorConfig(nextOperatorConfig)
       setError('')
     }
     catch (loadError) {
@@ -51,6 +59,41 @@ export default function SettingsPage() {
     }
     finally {
       setLoading(false)
+    }
+  }
+
+  async function saveDestination(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (!session || !operatorConfig) {
+      return
+    }
+
+    setSavingDestination(true)
+    try {
+      const payload = createStudioOperatorConfigRequestSchema.parse({
+        defaultCtaLabel: operatorConfig.defaultCtaLabel,
+        defaultCtaUrl: operatorConfig.defaultCtaUrl,
+        defaultPublicHashtags: operatorConfig.defaultPublicHashtags,
+        defaultPublicChecklist: operatorConfig.defaultPublicChecklist,
+        defaultPaidChecklist: operatorConfig.defaultPaidChecklist,
+        publicGuidelines: operatorConfig.publicGuidelines,
+        paidGuidelines: operatorConfig.paidGuidelines,
+        fanvueCreatorName: operatorConfig.fanvueCreatorName,
+        fanvueBaseUrl: operatorConfig.fanvueBaseUrl,
+      })
+
+      const saved = await studioFetch('/studio/v1/operator-config', studioOperatorConfigSchema, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      }, session.token, apiBase)
+      setOperatorConfig(saved)
+      setError('')
+    }
+    catch (saveError) {
+      setError(saveError instanceof Error ? saveError.message : 'Failed to save Fanvue destination')
+    }
+    finally {
+      setSavingDestination(false)
     }
   }
 
@@ -149,7 +192,7 @@ export default function SettingsPage() {
   return (
     <FactoryShell
       title="Settings"
-      subtitle="Keep one X account active, manage API access, and point the studio to the current backend."
+      subtitle="Keep one X account active, point the studio to the right backend, and lock the Fanvue destination for manual paid exports."
     >
       <section style={cardStyle}>
         <h3 style={{ marginTop: 0, fontFamily: 'var(--font-display), sans-serif' }}>API endpoint</h3>
@@ -166,7 +209,7 @@ export default function SettingsPage() {
           <div>
             <h3 style={{ marginTop: 0, fontFamily: 'var(--font-display), sans-serif' }}>Active X account</h3>
             <p style={{ margin: '8px 0 0', color: 'var(--muted)' }}>
-              The studio always exports publish packages against a single active X account.
+              Public packages can only be exported when one X account is active.
             </p>
           </div>
           <button onClick={() => void connectX()} style={primaryButtonStyle}>Connect or reconnect X</button>
@@ -213,10 +256,7 @@ export default function SettingsPage() {
                   </div>
                   <button
                     onClick={() => void activateAccount(account.accountId)}
-                    style={{
-                      ...primaryButtonStyle,
-                      opacity: isActive ? 0.7 : 1,
-                    }}
+                    style={{ ...primaryButtonStyle, opacity: isActive ? 0.7 : 1 }}
                     disabled={isActive}
                   >
                     {isActive ? 'Active account' : 'Make active'}
@@ -226,22 +266,41 @@ export default function SettingsPage() {
             )
           })}
           {!loading && (channelState?.availableAccounts.length || 0) === 0 && (
-            <div style={softCardStyle}>
-              No connected X accounts were found for this user yet.
-            </div>
+            <div style={softCardStyle}>No connected X accounts were found for this user yet.</div>
           )}
         </div>
       </section>
 
       <section style={cardStyle}>
+        <h3 style={{ marginTop: 0, fontFamily: 'var(--font-display), sans-serif' }}>Fanvue manual destination</h3>
+        {operatorConfig && (
+          <form onSubmit={saveDestination} style={{ display: 'grid', gap: 14 }}>
+            <label style={{ display: 'grid', gap: 8 }}>
+              <span>Fanvue creator name</span>
+              <input value={operatorConfig.fanvueCreatorName} onChange={event => setOperatorConfig(current => current ? { ...current, fanvueCreatorName: event.target.value } : current)} style={fieldStyle} />
+            </label>
+            <label style={{ display: 'grid', gap: 8 }}>
+              <span>Fanvue base URL</span>
+              <input value={operatorConfig.fanvueBaseUrl || ''} onChange={event => setOperatorConfig(current => current ? { ...current, fanvueBaseUrl: event.target.value || null } : current)} style={fieldStyle} />
+            </label>
+            <div style={softCardStyle}>
+              Public CTA default:
+              {' '}
+              <strong>{operatorConfig.defaultCtaLabel}</strong>
+              {' '}
+              {'->'} {operatorConfig.defaultCtaUrl}
+            </div>
+            <button type="submit" style={primaryButtonStyle} disabled={savingDestination}>
+              {savingDestination ? 'Saving destination...' : 'Save Fanvue destination'}
+            </button>
+          </form>
+        )}
+      </section>
+
+      <section style={cardStyle}>
         <h3 style={{ marginTop: 0, fontFamily: 'var(--font-display), sans-serif' }}>API keys</h3>
         <form onSubmit={createKey} style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 16 }}>
-          <input
-            value={name}
-            onChange={event => setName(event.target.value)}
-            placeholder="Key name"
-            style={{ ...fieldStyle, flex: 1 }}
-          />
+          <input value={name} onChange={event => setName(event.target.value)} placeholder="Key name" style={{ ...fieldStyle, flex: 1 }} />
           <button type="submit" style={primaryButtonStyle}>Create key</button>
         </form>
         {lastCreatedKey && (
@@ -263,9 +322,7 @@ export default function SettingsPage() {
               </div>
             </article>
           ))}
-          {!loading && apiKeys.length === 0 && (
-            <div style={softCardStyle}>No API keys yet.</div>
-          )}
+          {!loading && apiKeys.length === 0 && <div style={softCardStyle}>No API keys yet.</div>}
         </div>
       </section>
     </FactoryShell>

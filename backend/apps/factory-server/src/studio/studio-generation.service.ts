@@ -123,6 +123,7 @@ export class StudioGenerationService {
         assetId: image.assetId,
         previewUrl: image.previewUrl,
         reviewStatus: 'pending_review',
+        surfaceFit: null,
         reviewScore: null,
         rejectionReasons: [],
         operatorNote: '',
@@ -169,6 +170,7 @@ export class StudioGenerationService {
       {
         $set: {
           reviewStatus: nextStatus,
+          surfaceFit: body.decision === 'approve' ? body.surfaceFit ?? null : null,
           reviewScore: body.reviewScore ?? null,
           rejectionReasons: body.decision === 'approve' ? [] : body.rejectionReasons,
           operatorNote: body.operatorNote,

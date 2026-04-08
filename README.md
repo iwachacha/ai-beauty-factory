@@ -1,31 +1,33 @@
 # AI Beauty Studio
 
-Single-operator studio for running one X account with a semi-automatic workflow:
+Lean control room for one safe public X account and one paid Fanvue destination.
 
-`Character -> Template -> ComfyUI generation -> Human review -> Publish package -> Manual post -> Insights`
+Core loop:
+
+`Setup -> Ops -> Insights -> Settings`
 
 ## What is in this repo
 
 - `backend`
   - Nx + NestJS workspace
   - Main app: `apps/factory-server`
-  - New Studio API lives under `backend/apps/factory-server/src/studio`
+  - Studio API lives under `backend/apps/factory-server/src/studio`
 - `web`
-  - Next.js admin UI
+  - Next.js operator UI
   - Main routes:
-    - `/characters`
-    - `/templates`
-    - `/generate`
-    - `/review`
-    - `/publish`
+    - `/setup`
+    - `/ops`
     - `/insights`
     - `/settings`
+  - `web/lib/studio-contracts.ts` re-exports the shared Studio contracts from `backend/libs/studio-contracts/src/index.ts`
 - `scripts`
   - local start scripts
-  - Studio smoke test
+  - Studio smoke verification
   - ComfyUI workflow + mock server
 - `walkthrough.md`
-  - concept and intended operating model
+  - product model and operator workflow
+
+Legacy studio routes such as `/review`, `/publish`, `/generate`, `/characters`, and `/templates` are intentionally removed and should return `404`.
 
 ## Local setup
 
@@ -33,7 +35,7 @@ Requirements:
 
 - Node.js 24+
 - `corepack`
-- Docker-compatible local runtime for optional local smoke rehearsal
+- Docker-compatible local runtime when you want to rehearse the optional heavy verification locally
 
 1. Start MongoDB and Valkey.
 
@@ -71,6 +73,8 @@ cd ..\web
 npm run build
 ```
 
+The web build is intentionally pinned to webpack so the shared Studio contract source can be imported directly from `../backend`.
+
 6. Start backend and web.
 
 ```powershell
@@ -82,40 +86,45 @@ powershell -ExecutionPolicy Bypass -File .\scripts\start-backend.ps1
 powershell -ExecutionPolicy Bypass -File .\scripts\start-web.ps1
 ```
 
-7. Open the studio UI.
+7. Open the control room.
 
-- `http://localhost:6070/review`
+- `http://localhost:6070/ops`
 - login values come from `FACTORY_ADMIN_EMAIL` and `FACTORY_ADMIN_PASSWORD`
 - if those envs are unset, the local defaults are:
   - email: `admin@example.com`
   - password: `changeme123`
 
-## Smoke test
+## Smoke verification
 
-The smoke script now exercises the Studio v1 flow end to end:
+The smoke verification now exercises the rebuilt X -> Fanvue loop end to end:
 
 - login
-- seed one local X account
-- activate the account
-- create character and template
+- verify removed legacy routes return `404`
+- verify negative API flows:
+  - unapproved assets cannot become drafts
+  - public export is blocked without an active X account
+  - `paid_only` assets are blocked from public package export
+- seed one local X account and activate it
+- create a character and template
 - run generation through a mock ComfyUI server
-- approve the generated asset
-- create a content draft
-- export a publish package
-- record a published post
-- verify insights and the review page shell
+- approve the generated asset and route it as `public_safe`
+- create a dual-surface draft
+- export an X public package
+- export a Fanvue paid package
+- record funnel metrics
+- verify insights and the `/ops` shell
 
-Run it after backend/web are built:
+Run it after backend and web are built:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\smoke.ps1
 ```
 
-`verify-full` uses the same smoke flow. A Docker-compatible local runtime is only needed when you want to rehearse the heavy runtime checks locally.
+`verify-full` uses the same stack plus browser E2E. A Docker-compatible local runtime is only needed when you want to rehearse those heavier runtime checks locally.
 
 ## Guardrails
 
-The repository now treats verification as part of the deliverable.
+The repository treats verification as part of the deliverable.
 
 - `AGENTS.md`
   - top-level operating rules for autonomous delivery in this repo
@@ -127,7 +136,7 @@ The repository now treats verification as part of the deliverable.
   - optional local rehearsal for runtime flows when local infrastructure is available
 - `.github/workflows/quality.yml`
   - always runs `verify-fast`
-  - escalates to API smoke for runtime/CI changes
+  - escalates to API smoke for runtime and CI changes
   - escalates to browser E2E for major user-facing flow changes
 - `.githooks/pre-commit`
   - runs `verify-fast`
@@ -136,11 +145,11 @@ The repository now treats verification as part of the deliverable.
 
 ### Daily flow
 
-1. For non-trivial work, align on the spec with the user using `docs/spec-alignment-checklist.md`.
+1. Align on the product direction for non-trivial work using `docs/spec-alignment-checklist.md`.
 2. Branch from the latest `main`.
-3. Make the change.
+3. Make the smallest safe change.
 4. Run `powershell -ExecutionPolicy Bypass -File .\scripts\verify-fast.ps1`.
-5. Run `powershell -ExecutionPolicy Bypass -File .\scripts\verify-full.ps1` when you need a local runtime rehearsal and infrastructure is available.
+5. Run `powershell -ExecutionPolicy Bypass -File .\scripts\verify-full.ps1` when local runtime infrastructure is available and you need the full rehearsal.
 6. Push the feature branch.
 7. Wait for GitHub Actions to finish the required tier for that diff: fast, smoke, or browser.
-8. Open or update the PR with the verification evidence.
+8. Carry the verification evidence into the PR.

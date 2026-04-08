@@ -1,10 +1,14 @@
 # Factory Server
 
-NestJS backend for Studio v1.
+NestJS backend for the Studio v1 X -> Fanvue operating loop.
+
+Shared Studio contracts live in `backend/libs/studio-contracts/src/index.ts` and are re-exported by `src/studio/studio.contracts.ts`.
 
 ## Studio routes
 
 - `POST /api/auth/login`
+- `GET /api/studio/v1/operator-config`
+- `POST /api/studio/v1/operator-config`
 - `GET /api/studio/v1/characters`
 - `POST /api/studio/v1/characters`
 - `GET /api/studio/v1/templates`
@@ -18,9 +22,11 @@ NestJS backend for Studio v1.
 - `POST /api/studio/v1/generated-assets/:generatedAssetId/review`
 - `GET /api/studio/v1/content-drafts`
 - `POST /api/studio/v1/content-drafts`
-- `GET /api/studio/v1/publish-packages`
-- `POST /api/studio/v1/publish-packages`
-- `POST /api/studio/v1/published-posts`
+- `GET /api/studio/v1/public-post-packages`
+- `POST /api/studio/v1/public-post-packages`
+- `GET /api/studio/v1/paid-offer-packages`
+- `POST /api/studio/v1/paid-offer-packages`
+- `POST /api/studio/v1/funnel-metrics`
 - `GET /api/studio/v1/insights`
 
 ## Supporting routes

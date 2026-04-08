@@ -4,7 +4,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "rootDir": "../..",
-    "paths": {},
+    "paths": {
+      "@yikart/studio-contracts": ["libs/studio-contracts/src/index.ts"]
+    },
     "types": ["node"],
     "strict": true,
     "strictBindCallApply": true,

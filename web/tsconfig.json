@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "jsx": "react-jsx",
+    "baseUrl": ".",
     "lib": [
       "dom",
       "dom.iterable",
